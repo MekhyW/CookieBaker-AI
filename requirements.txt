@@ -4,3 +4,6 @@ langchain
 langsmith
 langserve[all]
 dask
+paddlepaddle
+paddleocr
+openai-whisper
