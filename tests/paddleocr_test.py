@@ -1,4 +1,8 @@
 from paddleocr import PaddleOCR
+import requests
+from PIL import Image
+from io import BytesIO
+import numpy as np
 
 def ocr_with_paddle(img):
     finaltext = ''
@@ -11,5 +15,11 @@ def ocr_with_paddle(img):
         finaltext += ' '+ text
     return finaltext
 
-img = 'Captura de tela 2024-07-15 215658.png'
+def url_to_ndarray(url):
+    response = requests.get(url)
+    img = np.array(Image.open(BytesIO(response.content)))
+    return img
+
+url = ""
+img = url_to_ndarray(url)
 print("RESULT: ", ocr_with_paddle(img))
