@@ -21,12 +21,15 @@
 ### Media tokenization layer:
 
 - According to text input, prompt multimodal model to extract relevant information from input audios, images and videos
-- GIFs should be converted to videos for this
-- Documents should NOT be supported as it is not the focus of the application and could be exploited for DOS attacks
+- Audio is converted to text using a speech-to-text model
+- Images are processed using CLIP and OCR
+- Videos are separated into audio and first frame, then processed as audio and image
+- GIFs are processed as videos
+- Documents are NOT supported as it is not the focus of the application and could be exploited for DOS attacks
 
 ### Command extraction layer:
 
-- Usage of embeddings to separate prompts that contain commands from prompts that are conversation-only, using the previously set list of available commands
+- Decide if prompt (+ media tokenization layer output if any) contains commands or is conversation-only, using the previously set list of available commands
 - If it does contain command(s), parse enforcing json schema using available relevant information and dictionary of available commands with their respective arguments
 - If a valid command was detected but information is clearly missing, this should be reported in the output of this layer as well
 
