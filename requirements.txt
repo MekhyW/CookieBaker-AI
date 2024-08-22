@@ -7,3 +7,4 @@ dask
 paddlepaddle
 paddleocr
 openai-whisper
+ffmpeg-python
