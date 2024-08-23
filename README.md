@@ -3,9 +3,10 @@
 ## Project outline:
 
 - Langchain app, self-hosted using LangServe
+- All models run locally and all data is stored locally
 - Used by Cookiebot and Dynamo projects to act as the “brain” for natural language capabilities (with inputs from users)
 - For Cookiebot, it will be accessed across machines using internal IP addresses. For Dynamo, it will be accessed via the localhost
-- Multimodal inputs, context-aware responses, online integration capabilities, instruction execution/system modification capabilities
+- Multimodal inputs, context-aware responses, online searching capabilities (if internet connection is available), command execution capabilities according to client-defined commands
 - Parallelization and resource monitoring with Dask
 - Design for on-premise environments, potentially resource-restricted. No data is stored/posted outside of the running device (internet is only used for querying complex models and searching the web)
 
@@ -35,7 +36,7 @@
 
 ### Response layer:
 
-- Model chosen based on SFW boolean
+- Model chosen based on SFW boolean (and affected by chat language and context if available)
 - Join everything and query fine-tuned model accordingly, allowing access to tools for getting information from the web or user or chat if relevant
 - If classification layer returned a positive result, json for command(s) execution(s) will be added to the response
 - Response is stored in chat context and returned, including command execution json if any
