@@ -10,4 +10,11 @@ def load_model(model_name="base"):
 def transcribe(url):
     if model is None:
         raise ValueError("STT model not loaded")
-    return model.transcribe(url)
+    transcription = model.transcribe(url)['text']
+    print(f"Audio transcription: {transcription}")
+    return transcription
+
+if __name__ == "__main__":
+    load_model()
+    model = whisper.load_model("base")
+    transcribe("https://www2.cs.uic.edu/~i101/SoundFiles/gettysburg10.wav")

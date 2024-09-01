@@ -44,8 +44,7 @@ def process_audio(url):
     return {"transcribed_audio": result}
 
 def process_image(url):
-    if model_imagedescriber.model is None:
-        model_imagedescriber.load_model()
+    model_imagedescriber.check_pull_model()
     result = model_imagedescriber.describe(url)
     return {"image_description": result}
 

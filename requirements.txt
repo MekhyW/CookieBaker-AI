@@ -7,4 +7,6 @@ dask
 paddlepaddle
 paddleocr
 openai-whisper
+ollama
 ffmpeg-python
+pillow
