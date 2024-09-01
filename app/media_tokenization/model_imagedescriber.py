@@ -31,23 +31,19 @@ def ocr_with_paddle(img):
         finaltext += ' ' + text
     return finaltext.strip()
 
-def url_to_ndarray(url):
+def url_to_ndarray_base64(url):
+    if "http" not in url:
+        img = np.array(Image.open(url))
+        base64_image = base64.b64encode(open(url, "rb").read()).decode('utf-8')
+        return img, base64_image
     response = requests.get(url)
     img_bytes = BytesIO(response.content)
     img = np.array(Image.open(img_bytes))
-    return img
-
-def get_base_64_img(image):
-    if "http" not in image:
-        base64_image = base64.b64encode(open(image, "rb").read()).decode('utf-8')
-    else:
-        response = requests.get(image)
-        base64_image = base64.b64encode(response.content).decode('utf-8')
-    return base64_image
+    base64_image = base64.b64encode(response.content).decode('utf-8')
+    return img, base64_image
 
 def describe(url):
-    image = url_to_ndarray(url)
-    image_base64 = get_base_64_img(url)
+    image, image_base64 = url_to_ndarray_base64(url)
     text_in_image = ocr_with_paddle(image)
     print(f"Text in image: {text_in_image}")
     system_prompt = "You are an assistant that provides very short, concise responses."
