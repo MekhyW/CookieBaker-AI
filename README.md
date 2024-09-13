@@ -14,33 +14,36 @@
 
 0) App receives input from client process, containing: chat configs, chat title, chat description, sender message (prompt), sender name, sender username, sender isadminprompt, and media [optional]
 1) Media tokenization layer extracts information from media [optional]
-2) Command extraction layer extracts commands from natural conversation messages, considering list of available commands (and assembles json if any)
-3) Response layer uses main LLMs and previous outputs in the chain to generate response. It can also access web search tools and custom tools to retrieve chat and/or sender information
-4) Every layer contains error handling measures and can return error messages
+2) Selection layer decides whether the incoming prompt is a command or a conversation message, and chooses between the command extraction layer and the response layer
+3) Command extraction layer extracts commands from messages classified as command intents, considering list of available commands, then assembles json. It can also access web search tools and custom tools to retrieve chat and/or sender information
+4) Conversation layer generates responses in natural language. It can also access web search tools and custom tools to retrieve chat and/or sender information
 5) Separate API routes for setting command dictionary and client metadata (as this only has to be done once)
 
 ### Media tokenization layer:
 
 - According to text input, prompt multimodal model to extract relevant information from input audios, images and videos
-- Audio is converted to text using a speech-to-text model
-- Images are processed using CLIP and OCR
+- Audio is converted to text (Whisper)
+- Images are processed with OCR and visual-text question answering models (PadddleOCR and LLaVA-Phi3-Mini)
 - Videos are separated into audio and first frame, then processed as audio and image
 - GIFs are processed as videos
-- Documents are NOT supported as it is not the focus of the application and could be exploited for DOS attacks
+- Documents are NOT supported for security reasons
+
+### Selection layer:
+
+- Decide if prompt contains commands or is conversation-only (fine-tuned TinyBERT)
+- If is is a command, pass it to the command extraction layer. If it is conversation-only, pass it to the response layer instead
 
 ### Command extraction layer:
 
-- Decide if prompt (+ media tokenization layer output if any) contains commands or is conversation-only, using the previously set list of available commands
-- If it does contain command(s), parse enforcing json schema using available relevant information and dictionary of available commands with their respective arguments
+- Extract commands from the prompt, considering the list of available commands (TBD)
+- Assemble json for command execution, with the necessary arguments, allowing access to tools for getting information from the web or user or chat if relevant
 - If a valid command was detected but information is clearly missing, this should be reported in the output of this layer as well
 
 ### Response layer:
 
-- Model chosen based on SFW boolean (and affected by chat language and context if available)
-- Join everything and query fine-tuned model accordingly, allowing access to tools for getting information from the web or user or chat if relevant
-- If classification layer returned a positive result, json for command(s) execution(s) will be added to the response
-- Response is stored in chat context and returned, including command execution json if any
-- The client is responsible for reporting failure/success of command executions back to the user
+- Model chosen based on SFW boolean (two fine-tuned Gemma2-2B)
+- Join prompt with media tokenization layer output if any, and query model accordingly, allowing access to tools for getting information from the web or user or chat if relevant
+- Response is stored in chat context and returned
 
 ## Installation
 
