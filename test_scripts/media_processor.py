@@ -1,5 +1,5 @@
-import model_imagedescriber
-import model_speechtotext
+import test_scripts.image_describer as image_describer
+import test_scripts.speechtotext as speechtotext
 import ffmpeg
 import tempfile
 import os
@@ -38,14 +38,14 @@ def determine_file_type(url):
         return "Unknown"
     
 def process_audio(url):
-    if model_speechtotext.model is None:
-        model_speechtotext.load_model()
-    result = model_speechtotext.transcribe(url)
+    if speechtotext.model is None:
+        speechtotext.load_model()
+    result = speechtotext.transcribe(url)
     return {"transcribed_audio": result}
 
 def process_image(url):
-    model_imagedescriber.check_pull_model()
-    result = model_imagedescriber.describe(url)
+    image_describer.check_pull_model()
+    result = image_describer.describe(url)
     return {"image_description": result}
 
 def process_video(url):
