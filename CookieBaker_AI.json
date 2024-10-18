@@ -1,0 +1,639 @@
+{
+  "name": "CookieBaker-AI",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "5abaf8b1-0d11-4f52-addc-0507e4ada135",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2280,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "290bd9ba-fbfa-4ab4-ab33-0cc2e7ad5635",
+              "leftValue": "={{ $json.query.media }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "55057540-6a36-47f1-ae9e-d5ba5f0e7cf3",
+      "name": "If media URL",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        580,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "193df097-05c6-427e-adfc-8846822d483d",
+      "name": "Classifier",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        740
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "27dd930a-fdaa-4bda-9f52-7e592c64c26e",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "command": "echo \"test\""
+      },
+      "id": "44ef36b8-5cca-42d8-ae97-6a33bf9d979e",
+      "name": "Media tokenization layer",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        800,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "b58e5a99-0233-4173-bc29-c8499cc089f3",
+      "name": "SFW Responder",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        500
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "fe8af8a2-86d6-482a-aaf2-28b42b025621",
+      "name": "NSFW Responder",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        820
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "e8718323-808d-4084-bfb3-35605cf7da63",
+      "name": "Respond to Webhook1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2280,
+        660
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "98209836-deec-4cd4-95ba-99c490db28e7",
+      "name": "Response layer NSFW",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1920,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "00d4c97b-7ade-4ef7-a2c6-3bf8437a2da9",
+              "leftValue": "={{ $json.query.sfw }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "733ff2af-6324-4c6b-a613-c5c1f804e2cc",
+      "name": "SFW/NSFW",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3.1:latest",
+        "options": {}
+      },
+      "id": "b7950b37-c01a-4243-8e2f-793409a19f03",
+      "name": "Extractor",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        200
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "fe8821a3-7b55-4789-abc7-20d7dcd63ee6",
+      "name": "Respond to Webhook2",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2280,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.query.prompt }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Command",
+              "description": "Explicit request for an action to be performed. This category includes prompts where the user expects the chatbot to execute a task or trigger a function. Commands often follow structured language patterns and may directly reference actions, objects, or intents. Examples of commands include requests for operations, system interactions, or control over external systems or services."
+            },
+            {
+              "category": "Conversation",
+              "description": "General interaction where the user is engaging in casual dialogue, asking questions, or making statements. This category includes conversational queries, small talk, or exploratory questions, where the focus is on dialogue rather than task execution. The language is often more fluid, subjective, or open-ended, with no clear intent for triggering a command."
+            }
+          ]
+        },
+        "options": {
+          "fallback": "discard"
+        }
+      },
+      "id": "26564126-e8c7-4712-aac6-f7358c7cf13e",
+      "name": "Selection Layer",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "da8d17cf-3e76-4fdd-a3eb-3f3a4b7684f2",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "cd31de80-32f4-4286-9351-6bfb15184bfc",
+      "name": "Log error",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        440,
+        840
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "b413d52f-0b23-45a0-ad9d-5d58f73943ed",
+      "name": "Command extraction layer",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1920,
+        40
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e74bdbf7-e29b-4452-ae94-6869bee2facb",
+      "name": "Response layer SFW",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        1920,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "12e14126-a99c-4414-98f2-e62d5fddb453",
+      "name": "Log metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        360,
+        420
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "80c00307-5e47-41c9-bf00-e156cc24692c",
+      "name": "Log extracted text",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        980,
+        260
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "response",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        560
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "If media URL": {
+      "main": [
+        [
+          {
+            "node": "Media tokenization layer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Selection Layer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classifier": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Selection Layer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Media tokenization layer": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log extracted text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFW Responder": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Response layer SFW",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NSFW Responder": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response layer NSFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFW/NSFW": {
+      "main": [
+        [
+          {
+            "node": "Response layer SFW",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response layer NSFW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extractor": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Command extraction layer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Selection Layer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Selection Layer": {
+      "main": [
+        [
+          {
+            "node": "Command extraction layer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SFW/NSFW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Log error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Command extraction layer": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response layer SFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log metadata": {
+      "main": [
+        [
+          {
+            "node": "If media URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If media URL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 300,
+    "errorWorkflow": "mywj1XM6RPnWoVNB",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none"
+  },
+  "versionId": "9ceb6349-c7e4-478d-a5e2-f2d355a32ce0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "mywj1XM6RPnWoVNB",
+  "tags": []
+}

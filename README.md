@@ -1,4 +1,4 @@
-# CookieBaker-AI
+# CookieBaker-AI (WIP)
 
 ## Project outline:
 
@@ -44,3 +44,16 @@
 - Model chosen based on SFW boolean (two fine-tuned Gemma2-2B)
 - Join prompt with media tokenization layer output if any, and query model accordingly, allowing access to tools for getting information from the web or user or chat if relevant
 - Response is stored in chat context and returned
+
+
+## Endpoints:
+
+- GET /response
+- POST/PUT/DELETE /commands
+- POST/PUT/DELETE /client_metadata
+- GET /speech_to_text
+- GET /text_to_speech
+- GET /logs/error
+- GET /logs/metadata
+- GET /logs/media
+- GET /logs/responses
