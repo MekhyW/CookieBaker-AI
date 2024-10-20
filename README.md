@@ -49,10 +49,9 @@
 ## Endpoints:
 
 - GET /response
-- POST/PUT/DELETE /commands
-- POST/PUT/DELETE /client_metadata
+- GET/POST/PUT /commands
+- GET/POST/PUT /client_metadata
 - GET /speech_to_text
-- GET /text_to_speech
 - GET /logs/error
 - GET /logs/metadata
 - GET /logs/media

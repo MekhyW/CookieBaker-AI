@@ -3,20 +3,6 @@
   "nodes": [
     {
       "parameters": {
-        "respondWith": "json",
-        "options": {}
-      },
-      "id": "5abaf8b1-0d11-4f52-addc-0507e4ada135",
-      "name": "Respond to Webhook",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        2280,
-        340
-      ]
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -97,71 +83,6 @@
     },
     {
       "parameters": {
-        "model": "llama3.1:latest",
-        "options": {}
-      },
-      "id": "b58e5a99-0233-4173-bc29-c8499cc089f3",
-      "name": "SFW Responder",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        1940,
-        500
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "model": "llama3.1:latest",
-        "options": {}
-      },
-      "id": "fe8af8a2-86d6-482a-aaf2-28b42b025621",
-      "name": "NSFW Responder",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        1940,
-        820
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "options": {}
-      },
-      "id": "e8718323-808d-4084-bfb3-35605cf7da63",
-      "name": "Respond to Webhook1",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        2280,
-        660
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "98209836-deec-4cd4-95ba-99c490db28e7",
-      "name": "Response layer NSFW",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.4,
-      "position": [
-        1920,
-        660
-      ]
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -191,70 +112,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1600,
-        600
-      ]
-    },
-    {
-      "parameters": {
-        "model": "llama3.1:latest",
-        "options": {}
-      },
-      "id": "b7950b37-c01a-4243-8e2f-793409a19f03",
-      "name": "Extractor",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        1940,
-        200
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "options": {}
-      },
-      "id": "fe8821a3-7b55-4789-abc7-20d7dcd63ee6",
-      "name": "Respond to Webhook2",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        2280,
-        40
-      ]
-    },
-    {
-      "parameters": {
-        "inputText": "={{ $json.query.prompt }}",
-        "categories": {
-          "categories": [
-            {
-              "category": "Command",
-              "description": "Explicit request for an action to be performed. This category includes prompts where the user expects the chatbot to execute a task or trigger a function. Commands often follow structured language patterns and may directly reference actions, objects, or intents. Examples of commands include requests for operations, system interactions, or control over external systems or services."
-            },
-            {
-              "category": "Conversation",
-              "description": "General interaction where the user is engaging in casual dialogue, asking questions, or making statements. This category includes conversational queries, small talk, or exploratory questions, where the focus is on dialogue rather than task execution. The language is often more fluid, subjective, or open-ended, with no clear intent for triggering a command."
-            }
-          ]
-        },
-        "options": {
-          "fallback": "discard"
-        }
-      },
-      "id": "26564126-e8c7-4712-aac6-f7358c7cf13e",
-      "name": "Selection Layer",
-      "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1,
-      "position": [
-        1200,
-        580
+        1680,
+        500
       ]
     },
     {
@@ -265,7 +124,7 @@
       "typeVersion": 1,
       "position": [
         120,
-        840
+        100
       ]
     },
     {
@@ -286,8 +145,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        440,
-        840
+        580,
+        100
       ],
       "credentials": {
         "postgres": {
@@ -295,28 +154,6 @@
           "name": "Postgres account"
         }
       }
-    },
-    {
-      "parameters": {},
-      "id": "b413d52f-0b23-45a0-ad9d-5d58f73943ed",
-      "name": "Command extraction layer",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.4,
-      "position": [
-        1920,
-        40
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "e74bdbf7-e29b-4452-ae94-6869bee2facb",
-      "name": "Response layer SFW",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.4,
-      "position": [
-        1920,
-        340
-      ]
     },
     {
       "parameters": {
@@ -376,12 +213,788 @@
     },
     {
       "parameters": {
+        "path": "speech_to_text",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ca10225a-0cb7-4fbe-b76e-0f6daf1f4484",
+      "name": "/speech_to_text",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        -260
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/error",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "02148f93-2a3e-4705-9104-1633eb4033b8",
+      "name": "/logs/error",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        1080
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/metadata",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "117335c4-d026-4a62-a410-6bbc5e2e8e4b",
+      "name": "/logs/metadata",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        1260
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/media",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f660ff96-832a-41dc-bebc-25a33b01f833",
+      "name": "/logs/media",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        1440
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST",
+          "PUT",
+          "GET"
+        ],
+        "path": "commands",
+        "options": {}
+      },
+      "id": "dd1a4999-58a4-4043-8e3e-c21259d466ca",
+      "name": "/commands",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        180
+      ],
+      "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST",
+          "PUT",
+          "GET"
+        ],
+        "path": "client_metadata",
+        "options": {}
+      },
+      "id": "8241e0bd-9bda-4b92-a3de-82ebb087395b",
+      "name": "/client_metadata",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        720
+      ],
+      "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "dff61f07-56aa-4a64-9f9f-081e1d359a46",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1080
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "b64f4252-d987-4fb8-a14c-6365c72b39be",
+      "name": "Postgres1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1260
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "2746616a-d43d-4285-952b-ca08a72520b8",
+      "name": "Postgres2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "logs/responses",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "90264f2a-82f4-487e-a8fc-e16e73be23a9",
+      "name": "/logs/responses",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        3220,
+        1620
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "ab36d84b-be7f-4606-bd12-edd5ed1afb49",
+      "name": "Postgres3",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1620
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "d81d1396-633c-4de7-8cdf-a4e40b5ca09f",
+      "name": "Respond to Webhook3",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "c376c7ea-8396-4e64-8a53-93dec38c1143",
+      "name": "Respond to Webhook4",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        1260
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "b7a2b3c9-aec4-40ab-a7e0-1d11bc79c93d",
+      "name": "Respond to Webhook5",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "716f323c-ed9b-403c-86a0-4c4e70492952",
+      "name": "Respond to Webhook6",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "command": "echo \"test\""
+      },
+      "id": "adeac90a-7a8a-4c71-bf45-c66f92f5a912",
+      "name": "STT",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3460,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "ced7b15a-0ac4-4fe6-b3ca-fe8bcd1b8696",
+      "name": "Respond to Webhook7",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "b829b7fd-21c0-49b5-b089-a9150beb96bc",
+      "name": "Postgres4",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        560
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "ef898970-49af-41ed-aab3-7c1264e1cec1",
+      "name": "Postgres5",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        720
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "5c9401ea-4810-43bf-b7f1-b4600b9865a7",
+      "name": "Postgres6",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        880
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "dae4673d-2397-4384-a102-b9d4d597b10d",
+      "name": "Respond to Webhook8",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "bac2eeef-2cec-4b7d-ab5d-4b5542894394",
+      "name": "Postgres7",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        20
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "c6851f5a-6851-4bba-8e01-446f4a7da099",
+      "name": "Postgres8",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        180
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "c0ca0a88-2f57-4f48-af8d-6c11c80732d3",
+      "name": "Postgres9",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        340
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "49cf696a-da73-42ab-98d7-626b0afbecf2",
+      "name": "Respond to Webhook9",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3740,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "dd754e49-8a33-455f-8170-b437b1249332",
+      "name": "Respond to Webhook10",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "9f1fd43a-1d7c-4d89-a1c5-f59a7881ce5c",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2480,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "2457e9be-a4b1-46e4-b7ce-aa5689f6fbc9",
+      "name": "Log response",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2680,
+        360
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "48bc3913-5aab-4719-bb04-5c4f02681b36",
+      "name": "Extractor",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        220
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "1dfb9a89-ef68-448e-80d6-5d0994c70050",
+      "name": "SFW responder",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        520
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e076bb2e-8165-4ca6-a20d-19787b4745a6",
+      "name": "NSFW Responder",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        820
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.query.prompt }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Command",
+              "description": "Explicit request for an action to be performed. This category includes prompts where the user expects the chatbot to execute a task or trigger a function. Commands often follow structured language patterns and may directly reference actions, objects, or intents. Examples of commands include requests for operations, system interactions, or control over external systems or services."
+            },
+            {
+              "category": "Conversation",
+              "description": "General interaction where the user is engaging in casual dialogue, asking questions, or making statements. This category includes conversational queries, small talk, or exploratory questions, where the focus is on dialogue rather than task execution. The language is often more fluid, subjective, or open-ended, with no clear intent for triggering a command."
+            }
+          ]
+        },
+        "options": {
+          "fallback": "discard"
+        }
+      },
+      "id": "26564126-e8c7-4712-aac6-f7358c7cf13e",
+      "name": "Selection Layer",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey"
+      },
+      "id": "fb8cff9c-7b65-43ee-b68a-49cdb6d5d6e5",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1,
+      "position": [
+        2300,
+        820
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
+      "name": "Response layer NSFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1920,
+        660
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
+      "name": "Response layer SFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1920,
+        360
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "id": "ab225cb2-ba00-4998-9701-54df066d9a7a",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        820
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8f97956f-6d90-4f1a-be41-05e1051ceb3b",
+      "name": "Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        1180
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "63844d37-499f-4131-8f9c-44153f8749b7",
+      "name": "VectorStore Model",
+      "type": "@n8n/n8n-nodes-langchain.lmOllama",
+      "typeVersion": 1,
+      "position": [
+        2580,
+        980
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "74c83782-a191-4dbe-be86-b72408306e91",
+      "name": "SerpAPI",
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        820
+      ]
+    },
+    {
+      "parameters": {
         "path": "response",
         "responseMode": "responseNode",
         "options": {}
       },
       "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
-      "name": "Webhook",
+      "name": "/response",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
@@ -390,10 +1003,230 @@
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "options": {}
+      },
+      "id": "135d2cbc-42cc-479b-beb0-d2ab49148497",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "id": "d409caac-af3b-4a7c-95e7-01ee13f4c69b",
+      "name": "Qdrant Insert",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        960
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "id": "d287aef8-e544-4c7e-b66f-b6c7ed1ebb5c",
+      "name": "Qdrant Retrieve",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        980
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "12542cd5-0f90-4583-9204-241182755902",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7baa86cb-f7d4-4b45-845d-d9e58a92a52b",
+      "name": "Command extraction layer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1920,
+        60
+      ],
+      "alwaysOutputData": true
     }
   ],
   "pinData": {
-    "Webhook": [
+    "/speech_to_text": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "/logs/error": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "/logs/metadata": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "/logs/media": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "/logs/responses": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "user-agent": "python-requests/2.32.3",
+            "accept-encoding": "gzip, deflate",
+            "accept": "*/*",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {
+            "sfw": "True",
+            "chat_title": "Test Chat",
+            "chat_description": "This is a test chat description",
+            "prompt": "Test prompt for chatbot",
+            "sender_name": "Test User",
+            "sender_isadmin": "False",
+            "media": ""
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/response",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "/response": [
       {
         "json": {
           "headers": {
@@ -435,6 +1268,11 @@
             "node": "Selection Layer",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Qdrant Insert",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -466,39 +1304,6 @@
         ]
       ]
     },
-    "SFW Responder": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Response layer SFW",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "NSFW Responder": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Response layer NSFW",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response layer NSFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SFW/NSFW": {
       "main": [
         [
@@ -517,6 +1322,270 @@
         ]
       ]
     },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Selection Layer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Qdrant Insert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log metadata": {
+      "main": [
+        [
+          {
+            "node": "If media URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/error": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/metadata": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/media": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/responses": {
+      "main": [
+        [
+          {
+            "node": "Postgres3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/speech_to_text": {
+      "main": [
+        [
+          {
+            "node": "STT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "STT": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/client_metadata": {
+      "main": [
+        [
+          {
+            "node": "Postgres4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Postgres5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Postgres6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres4": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/commands": {
+      "main": [
+        [
+          {
+            "node": "Postgres7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Postgres8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Postgres9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres7": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres8": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres9": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Extractor": {
       "ai_languageModel": [
         [
@@ -528,12 +1597,23 @@
         ]
       ]
     },
-    "Edit Fields": {
-      "main": [
+    "SFW responder": {
+      "ai_languageModel": [
         [
           {
-            "node": "Selection Layer",
-            "type": "main",
+            "node": "Response layer SFW",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NSFW Responder": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -557,22 +1637,32 @@
         ]
       ]
     },
-    "Error Trigger": {
-      "main": [
+    "Postgres Chat Memory": {
+      "ai_memory": [
         [
           {
-            "node": "Log error",
-            "type": "main",
+            "node": "Response layer SFW",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Command extraction layer",
+            "type": "ai_memory",
             "index": 0
           }
         ]
       ]
     },
-    "Command extraction layer": {
+    "Response layer NSFW": {
       "main": [
         [
           {
-            "node": "Respond to Webhook2",
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -590,18 +1680,76 @@
         ]
       ]
     },
-    "Log metadata": {
-      "main": [
+    "Vector Store Tool": {
+      "ai_tool": [
         [
           {
-            "node": "If media URL",
-            "type": "main",
+            "node": "Command extraction layer",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response layer SFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_tool",
             "index": 0
           }
         ]
       ]
     },
-    "Webhook": {
+    "Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Retrieve",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Qdrant Insert",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VectorStore Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Command extraction layer",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response layer SFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/response": {
       "main": [
         [
           {
@@ -611,6 +1759,72 @@
           },
           {
             "node": "Log metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Log response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook10": {
+      "main": [
+        [
+          {
+            "node": "Log error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Insert",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Retrieve": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Command extraction layer": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -629,7 +1843,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "9ceb6349-c7e4-478d-a5e2-f2d355a32ce0",
+  "versionId": "bde05cae-ec50-477b-a85f-647de507e79d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
