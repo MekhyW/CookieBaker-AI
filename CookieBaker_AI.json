@@ -57,19 +57,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "id": "27dd930a-fdaa-4bda-9f52-7e592c64c26e",
-      "name": "Edit Fields",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        980,
-        420
-      ]
-    },
-    {
-      "parameters": {
         "command": "echo \"test\""
       },
       "id": "44ef36b8-5cca-42d8-ae97-6a33bf9d979e",
@@ -173,8 +160,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        360,
-        420
+        300,
+        380
       ],
       "credentials": {
         "postgres": {
@@ -323,139 +310,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "dff61f07-56aa-4a64-9f9f-081e1d359a46",
-      "name": "Postgres",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        1080
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "b64f4252-d987-4fb8-a14c-6365c72b39be",
-      "name": "Postgres1",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        1260
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "2746616a-d43d-4285-952b-ca08a72520b8",
-      "name": "Postgres2",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        1440
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "path": "logs/responses",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "90264f2a-82f4-487e-a8fc-e16e73be23a9",
-      "name": "/logs/responses",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        3220,
-        1620
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "ab36d84b-be7f-4606-bd12-edd5ed1afb49",
-      "name": "Postgres3",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        1620
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "options": {}
       },
@@ -539,93 +393,6 @@
     },
     {
       "parameters": {
-        "operation": "upsert",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "b829b7fd-21c0-49b5-b089-a9150beb96bc",
-      "name": "Postgres4",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        560
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "ef898970-49af-41ed-aab3-7c1264e1cec1",
-      "name": "Postgres5",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        720
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "5c9401ea-4810-43bf-b7f1-b4600b9865a7",
-      "name": "Postgres6",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        880
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "options": {}
       },
@@ -637,93 +404,6 @@
         3740,
         720
       ]
-    },
-    {
-      "parameters": {
-        "operation": "upsert",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "bac2eeef-2cec-4b7d-ab5d-4b5542894394",
-      "name": "Postgres7",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        20
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "c6851f5a-6851-4bba-8e01-446f4a7da099",
-      "name": "Postgres8",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        180
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "c0ca0a88-2f57-4f48-af8d-6c11c80732d3",
-      "name": "Postgres9",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        3460,
-        340
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
     },
     {
       "parameters": {
@@ -766,34 +446,6 @@
         2480,
         360
       ]
-    },
-    {
-      "parameters": {
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "2457e9be-a4b1-46e4-b7ce-aa5689f6fbc9",
-      "name": "Log response",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        2680,
-        360
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
     },
     {
       "parameters": {
@@ -945,8 +597,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
       "position": [
-        1760,
-        1180
+        2680,
+        1220
       ],
       "credentials": {
         "ollamaApi": {
@@ -1014,9 +666,36 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        1200,
-        1180
+        2820,
+        520
       ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "12542cd5-0f90-4583-9204-241182755902",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        2820,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7baa86cb-f7d4-4b45-845d-d9e58a92a52b",
+      "name": "Command extraction layer",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1920,
+        60
+      ],
+      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -1033,8 +712,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
       "position": [
-        1200,
-        960
+        2760,
+        360
       ],
       "credentials": {
         "qdrantApi": {
@@ -1069,30 +748,394 @@
     },
     {
       "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "f97b699a-589c-44b7-8dbb-4407a7ce45aa",
+      "name": "Get Client Metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        300,
+        560
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "a31d3b8d-68c0-4243-853c-564a249f1ee8",
+      "name": "Get available commands",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1760,
+        60
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "logs/responses",
+        "responseMode": "responseNode",
         "options": {}
       },
-      "id": "12542cd5-0f90-4583-9204-241182755902",
-      "name": "Recursive Character Text Splitter",
-      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
-      "typeVersion": 1,
+      "id": "90264f2a-82f4-487e-a8fc-e16e73be23a9",
+      "name": "/logs/chat",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
       "position": [
-        1200,
-        1300
+        3220,
+        1620
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "ab36d84b-be7f-4606-bd12-edd5ed1afb49",
+      "name": "get chat logs",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1620
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "2746616a-d43d-4285-952b-ca08a72520b8",
+      "name": "get media logs",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "b64f4252-d987-4fb8-a14c-6365c72b39be",
+      "name": "get metadata logs",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1260
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "dff61f07-56aa-4a64-9f9f-081e1d359a46",
+      "name": "get error logs",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        1080
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "5c9401ea-4810-43bf-b7f1-b4600b9865a7",
+      "name": "get client metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        880
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "ef898970-49af-41ed-aab3-7c1264e1cec1",
+      "name": "update client metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        720
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "b829b7fd-21c0-49b5-b089-a9150beb96bc",
+      "name": "create client metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        560
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "c0ca0a88-2f57-4f48-af8d-6c11c80732d3",
+      "name": "get available commands",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        340
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "c6851f5a-6851-4bba-8e01-446f4a7da099",
+      "name": "update available commands",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        180
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "bac2eeef-2cec-4b7d-ab5d-4b5542894394",
+      "name": "create available commands",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        3460,
+        20
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "27dd930a-fdaa-4bda-9f52-7e592c64c26e",
+      "name": "Update prompt end",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        420
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "7baa86cb-f7d4-4b45-845d-d9e58a92a52b",
-      "name": "Command extraction layer",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
+      "id": "b7f6b84c-5b61-4d31-9b37-ca6ddfca8f2a",
+      "name": "Update prompt beginning",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        1920,
-        60
-      ],
-      "alwaysOutputData": true
+        440,
+        560
+      ]
     }
   ],
   "pinData": {
@@ -1200,7 +1243,7 @@
         }
       }
     ],
-    "/logs/responses": [
+    "/response": [
       {
         "json": {
           "headers": {
@@ -1226,7 +1269,7 @@
         }
       }
     ],
-    "/response": [
+    "/logs/chat": [
       {
         "json": {
           "headers": {
@@ -1268,11 +1311,6 @@
             "node": "Selection Layer",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Qdrant Insert",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -1292,7 +1330,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Update prompt end",
             "type": "main",
             "index": 0
           },
@@ -1322,22 +1360,6 @@
         ]
       ]
     },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Selection Layer",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Qdrant Insert",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Error Trigger": {
       "main": [
         [
@@ -1349,22 +1371,11 @@
         ]
       ]
     },
-    "Log metadata": {
-      "main": [
-        [
-          {
-            "node": "If media URL",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "/logs/error": {
       "main": [
         [
           {
-            "node": "Postgres",
+            "node": "get error logs",
             "type": "main",
             "index": 0
           }
@@ -1375,7 +1386,7 @@
       "main": [
         [
           {
-            "node": "Postgres1",
+            "node": "get metadata logs",
             "type": "main",
             "index": 0
           }
@@ -1386,62 +1397,7 @@
       "main": [
         [
           {
-            "node": "Postgres2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/logs/responses": {
-      "main": [
-        [
-          {
-            "node": "Postgres3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres1": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres2": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook5",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres3": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook6",
+            "node": "get media logs",
             "type": "main",
             "index": 0
           }
@@ -1474,54 +1430,21 @@
       "main": [
         [
           {
-            "node": "Postgres4",
+            "node": "create client metadata",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Postgres5",
+            "node": "update client metadata",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Postgres6",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres4": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres5": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres6": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
+            "node": "get client metadata",
             "type": "main",
             "index": 0
           }
@@ -1532,54 +1455,21 @@
       "main": [
         [
           {
-            "node": "Postgres7",
+            "node": "create available commands",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Postgres8",
+            "node": "update available commands",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Postgres9",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres7": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook9",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres8": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook9",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Postgres9": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook9",
+            "node": "get available commands",
             "type": "main",
             "index": 0
           }
@@ -1623,7 +1513,7 @@
       "main": [
         [
           {
-            "node": "Command extraction layer",
+            "node": "Get available commands",
             "type": "main",
             "index": 0
           }
@@ -1753,7 +1643,7 @@
       "main": [
         [
           {
-            "node": "If media URL",
+            "node": "Get Client Metadata",
             "type": "main",
             "index": 0
           },
@@ -1769,7 +1659,7 @@
       "main": [
         [
           {
-            "node": "Log response",
+            "node": "Qdrant Insert",
             "type": "main",
             "index": 0
           }
@@ -1798,17 +1688,6 @@
         ]
       ]
     },
-    "Qdrant Retrieve": {
-      "ai_vectorStore": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_vectorStore",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Recursive Character Text Splitter": {
       "ai_textSplitter": [
         [
@@ -1830,6 +1709,182 @@
           }
         ]
       ]
+    },
+    "Qdrant Retrieve": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Client Metadata": {
+      "main": [
+        [
+          {
+            "node": "Update prompt beginning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get available commands": {
+      "main": [
+        [
+          {
+            "node": "Command extraction layer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/chat": {
+      "main": [
+        [
+          {
+            "node": "get chat logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get chat logs": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get media logs": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get metadata logs": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get error logs": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get client metadata": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update client metadata": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create client metadata": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get available commands": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update available commands": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create available commands": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update prompt end": {
+      "main": [
+        [
+          {
+            "node": "Selection Layer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update prompt beginning": {
+      "main": [
+        [
+          {
+            "node": "If media URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -1843,7 +1898,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "bde05cae-ec50-477b-a85f-647de507e79d",
+  "versionId": "8509623d-6b1c-4cb6-9ba8-50d3b8ee11a3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"

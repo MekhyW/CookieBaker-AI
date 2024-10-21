@@ -55,4 +55,4 @@
 - GET /logs/error
 - GET /logs/metadata
 - GET /logs/media
-- GET /logs/responses
+- GET /logs/chat
