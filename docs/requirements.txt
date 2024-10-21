@@ -1,0 +1,2 @@
+furo==2021.11.16
+sphinxawesome-theme==5.3.1
