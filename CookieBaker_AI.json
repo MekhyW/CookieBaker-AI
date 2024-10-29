@@ -37,26 +37,6 @@
     },
     {
       "parameters": {
-        "model": "llama3.1:latest",
-        "options": {}
-      },
-      "id": "193df097-05c6-427e-adfc-8846822d483d",
-      "name": "Classifier",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        1220,
-        740
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
-    },
-    {
-      "parameters": {
         "command": "echo \"test\""
       },
       "id": "44ef36b8-5cca-42d8-ae97-6a33bf9d979e",
@@ -99,8 +79,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1680,
-        500
+        1220,
+        580
       ]
     },
     {
@@ -209,8 +189,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        -260
+        120,
+        860
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -226,8 +206,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        1080
+        120,
+        2080
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -243,8 +223,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        1260
+        120,
+        2260
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -260,8 +240,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        1440
+        120,
+        2440
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -282,8 +262,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        180
+        120,
+        1180
       ],
       "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
     },
@@ -303,8 +283,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        720
+        120,
+        1720
       ],
       "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
     },
@@ -318,8 +298,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        1080
+        640,
+        2080
       ]
     },
     {
@@ -332,8 +312,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        1260
+        640,
+        2260
       ]
     },
     {
@@ -346,8 +326,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        1440
+        640,
+        2440
       ]
     },
     {
@@ -360,8 +340,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        1620
+        640,
+        2620
       ]
     },
     {
@@ -373,8 +353,8 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        3460,
-        -260
+        360,
+        860
       ]
     },
     {
@@ -387,8 +367,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        -260
+        640,
+        860
       ]
     },
     {
@@ -401,8 +381,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        720
+        640,
+        1720
       ]
     },
     {
@@ -415,8 +395,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        3740,
-        180
+        640,
+        1180
       ]
     },
     {
@@ -443,28 +423,9 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2480,
-        360
+        2140,
+        500
       ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "48bc3913-5aab-4719-bb04-5c4f02681b36",
-      "name": "Extractor",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
-      "typeVersion": 1,
-      "position": [
-        1940,
-        220
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
     },
     {
       "parameters": {
@@ -475,7 +436,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        1940,
+        1460,
         520
       ],
       "credentials": {
@@ -494,8 +455,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        1940,
-        820
+        1460,
+        860
       ],
       "credentials": {
         "ollamaApi": {
@@ -506,34 +467,6 @@
     },
     {
       "parameters": {
-        "inputText": "={{ $json.query.prompt }}",
-        "categories": {
-          "categories": [
-            {
-              "category": "Command",
-              "description": "Explicit request for an action to be performed. This category includes prompts where the user expects the chatbot to execute a task or trigger a function. Commands often follow structured language patterns and may directly reference actions, objects, or intents. Examples of commands include requests for operations, system interactions, or control over external systems or services."
-            },
-            {
-              "category": "Conversation",
-              "description": "General interaction where the user is engaging in casual dialogue, asking questions, or making statements. This category includes conversational queries, small talk, or exploratory questions, where the focus is on dialogue rather than task execution. The language is often more fluid, subjective, or open-ended, with no clear intent for triggering a command."
-            }
-          ]
-        },
-        "options": {
-          "fallback": "discard"
-        }
-      },
-      "id": "26564126-e8c7-4712-aac6-f7358c7cf13e",
-      "name": "Selection Layer",
-      "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1,
-      "position": [
-        1200,
-        580
-      ]
-    },
-    {
-      "parameters": {
         "sessionIdType": "customKey"
       },
       "id": "fb8cff9c-7b65-43ee-b68a-49cdb6d5d6e5",
@@ -541,8 +474,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.1,
       "position": [
-        2300,
-        820
+        1800,
+        940
       ],
       "credentials": {
         "postgres": {
@@ -552,42 +485,14 @@
       }
     },
     {
-      "parameters": {
-        "options": {}
-      },
-      "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
-      "name": "Response layer NSFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1920,
-        660
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
-      "name": "Response layer SFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1920,
-        360
-      ],
-      "alwaysOutputData": true
-    },
-    {
       "parameters": {},
       "id": "ab225cb2-ba00-4998-9701-54df066d9a7a",
       "name": "Vector Store Tool",
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1,
       "position": [
-        2400,
-        820
+        2060,
+        880
       ]
     },
     {
@@ -597,8 +502,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
       "typeVersion": 1,
       "position": [
-        2680,
-        1220
+        2360,
+        1240
       ],
       "credentials": {
         "ollamaApi": {
@@ -616,8 +521,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmOllama",
       "typeVersion": 1,
       "position": [
-        2580,
-        980
+        2240,
+        1020
       ],
       "credentials": {
         "ollamaApi": {
@@ -635,8 +540,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "typeVersion": 1,
       "position": [
-        2640,
-        820
+        2300,
+        880
       ]
     },
     {
@@ -666,8 +571,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        2820,
-        520
+        2440,
+        660
       ]
     },
     {
@@ -679,23 +584,9 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        2820,
-        640
+        2440,
+        780
       ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "7baa86cb-f7d4-4b45-845d-d9e58a92a52b",
-      "name": "Command extraction layer",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1920,
-        60
-      ],
-      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -712,32 +603,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
       "position": [
-        2760,
-        360
-      ],
-      "credentials": {
-        "qdrantApi": {
-          "id": "sFfERYppMeBnFNeA",
-          "name": "Local QdrantApi database"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "qdrantCollection": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "options": {}
-      },
-      "id": "d287aef8-e544-4c7e-b66f-b6c7ed1ebb5c",
-      "name": "Qdrant Retrieve",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        2340,
-        980
+        2360,
+        500
       ],
       "credentials": {
         "qdrantApi": {
@@ -777,35 +644,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "a31d3b8d-68c0-4243-853c-564a249f1ee8",
-      "name": "Get available commands",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        1760,
-        60
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "path": "logs/responses",
         "responseMode": "responseNode",
         "options": {}
@@ -815,8 +653,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        3220,
-        1620
+        120,
+        2620
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -840,8 +678,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        1620
+        360,
+        2620
       ],
       "credentials": {
         "postgres": {
@@ -869,8 +707,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        1440
+        360,
+        2440
       ],
       "credentials": {
         "postgres": {
@@ -898,8 +736,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        1260
+        360,
+        2260
       ],
       "credentials": {
         "postgres": {
@@ -927,8 +765,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        1080
+        360,
+        2080
       ],
       "credentials": {
         "postgres": {
@@ -956,8 +794,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        880
+        360,
+        1880
       ],
       "credentials": {
         "postgres": {
@@ -985,8 +823,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        720
+        360,
+        1720
       ],
       "credentials": {
         "postgres": {
@@ -1014,8 +852,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        560
+        360,
+        1560
       ],
       "credentials": {
         "postgres": {
@@ -1043,8 +881,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        340
+        360,
+        1340
       ],
       "credentials": {
         "postgres": {
@@ -1072,8 +910,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        180
+        360,
+        1180
       ],
       "credentials": {
         "postgres": {
@@ -1101,8 +939,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        3460,
-        20
+        360,
+        1020
       ],
       "credentials": {
         "postgres": {
@@ -1135,6 +973,135 @@
       "position": [
         440,
         560
+      ]
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "id": "d287aef8-e544-4c7e-b66f-b6c7ed1ebb5c",
+      "name": "Qdrant Retrieve",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        1020
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "sFfERYppMeBnFNeA",
+          "name": "Local QdrantApi database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
+      "name": "Response layer NSFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1440,
+        700
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
+      "name": "Response layer SFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1440,
+        360
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "id": "8537afb3-8ee2-4b92-ab1f-448035ab6b50",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "id": "0c9d3913-a4ad-43cb-a122-f32b0f450b5f",
+      "name": "Get Available Commands",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2380,
+        280
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "8fe22ee0-3aac-436b-8da5-a91fcdd5c6a4",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2600,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "name": "get_commands",
+        "workflowId": {
+          "__rl": true,
+          "value": "mywj1XM6RPnWoVNB",
+          "mode": "list",
+          "cachedResultName": "CookieBaker-AI"
+        }
+      },
+      "id": "ea1521b8-05c5-4309-b2fb-d2b958c0776f",
+      "name": "Get Commands",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1960,
+        880
       ]
     }
   ],
@@ -1308,19 +1275,8 @@
         ],
         [
           {
-            "node": "Selection Layer",
+            "node": "SFW/NSFW",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Classifier": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Selection Layer",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -1476,17 +1432,6 @@
         ]
       ]
     },
-    "Extractor": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Command extraction layer",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SFW responder": {
       "ai_languageModel": [
         [
@@ -1509,24 +1454,6 @@
         ]
       ]
     },
-    "Selection Layer": {
-      "main": [
-        [
-          {
-            "node": "Get available commands",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "SFW/NSFW",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Postgres Chat Memory": {
       "ai_memory": [
         [
@@ -1539,33 +1466,6 @@
             "node": "Response layer NSFW",
             "type": "ai_memory",
             "index": 0
-          },
-          {
-            "node": "Command extraction layer",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response layer NSFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response layer SFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -1573,11 +1473,6 @@
     "Vector Store Tool": {
       "ai_tool": [
         [
-          {
-            "node": "Command extraction layer",
-            "type": "ai_tool",
-            "index": 0
-          },
           {
             "node": "Response layer SFW",
             "type": "ai_tool",
@@ -1621,11 +1516,6 @@
     "SerpAPI": {
       "ai_tool": [
         [
-          {
-            "node": "Command extraction layer",
-            "type": "ai_tool",
-            "index": 0
-          },
           {
             "node": "Response layer SFW",
             "type": "ai_tool",
@@ -1699,44 +1589,11 @@
         ]
       ]
     },
-    "Command extraction layer": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Qdrant Retrieve": {
-      "ai_vectorStore": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_vectorStore",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get Client Metadata": {
       "main": [
         [
           {
             "node": "Update prompt beginning",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get available commands": {
-      "main": [
-        [
-          {
-            "node": "Command extraction layer",
             "type": "main",
             "index": 0
           }
@@ -1864,23 +1721,94 @@
         ]
       ]
     },
-    "Update prompt end": {
-      "main": [
-        [
-          {
-            "node": "Selection Layer",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Update prompt beginning": {
       "main": [
         [
           {
             "node": "If media URL",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Retrieve": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update prompt end": {
+      "main": [
+        [
+          {
+            "node": "SFW/NSFW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response layer NSFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response layer SFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Available Commands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Commands": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Commands": {
+      "ai_tool": [
+        [
+          {
+            "node": "Response layer SFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response layer NSFW",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -1898,7 +1826,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "8509623d-6b1c-4cb6-9ba8-50d3b8ee11a3",
+  "versionId": "fdfa5bbd-f642-415b-b5b5-8201bca92ad2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
