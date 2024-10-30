@@ -423,7 +423,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2140,
+        2040,
         500
       ]
     },
@@ -467,7 +467,8 @@
     },
     {
       "parameters": {
-        "sessionIdType": "customKey"
+        "sessionIdType": "customKey",
+        "contextWindowLength": 10
       },
       "id": "fb8cff9c-7b65-43ee-b68a-49cdb6d5d6e5",
       "name": "Postgres Chat Memory",
@@ -475,59 +476,12 @@
       "typeVersion": 1.1,
       "position": [
         1800,
-        940
+        840
       ],
       "credentials": {
         "postgres": {
           "id": "1HXosNollNYXWPfJ",
           "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {},
-      "id": "ab225cb2-ba00-4998-9701-54df066d9a7a",
-      "name": "Vector Store Tool",
-      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
-      "typeVersion": 1,
-      "position": [
-        2060,
-        880
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "8f97956f-6d90-4f1a-be41-05e1051ceb3b",
-      "name": "Embeddings",
-      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
-      "typeVersion": 1,
-      "position": [
-        2360,
-        1240
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "63844d37-499f-4131-8f9c-44153f8749b7",
-      "name": "VectorStore Model",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        2240,
-        1020
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
         }
       }
     },
@@ -540,76 +494,13 @@
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "typeVersion": 1,
       "position": [
-        2300,
-        880
-      ]
-    },
-    {
-      "parameters": {
-        "path": "response",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
-      "name": "/response",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        560
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "jsonMode": "expressionData",
-        "options": {}
-      },
-      "id": "135d2cbc-42cc-479b-beb0-d2ab49148497",
-      "name": "Default Data Loader",
-      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
-      "typeVersion": 1,
-      "position": [
-        2440,
-        660
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "12542cd5-0f90-4583-9204-241182755902",
-      "name": "Recursive Character Text Splitter",
-      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
-      "typeVersion": 1,
-      "position": [
-        2440,
-        780
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "insert",
-        "qdrantCollection": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "options": {}
-      },
-      "id": "d409caac-af3b-4a7c-95e7-01ee13f4c69b",
-      "name": "Qdrant Insert",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        2360,
-        500
+        2040,
+        840
       ],
       "credentials": {
-        "qdrantApi": {
-          "id": "sFfERYppMeBnFNeA",
-          "name": "Local QdrantApi database"
+        "serpApi": {
+          "id": "XOWma2xUsEl30feb",
+          "name": "SerpAPI account"
         }
       }
     },
@@ -977,30 +868,6 @@
     },
     {
       "parameters": {
-        "qdrantCollection": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "options": {}
-      },
-      "id": "d287aef8-e544-4c7e-b66f-b6c7ed1ebb5c",
-      "name": "Qdrant Retrieve",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        2000,
-        1020
-      ],
-      "credentials": {
-        "qdrantApi": {
-          "id": "sFfERYppMeBnFNeA",
-          "name": "Local QdrantApi database"
-        }
-      }
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
@@ -1034,7 +901,7 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        2140,
+        2040,
         280
       ]
     },
@@ -1057,7 +924,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2380,
+        2280,
         280
       ],
       "credentials": {
@@ -1081,7 +948,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2600,
+        2500,
         280
       ]
     },
@@ -1100,9 +967,26 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1960,
-        880
+        1940,
+        840
       ]
+    },
+    {
+      "parameters": {
+        "path": "response",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
+      "name": "/response",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        560
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
     }
   ],
   "pinData": {
@@ -1210,7 +1094,7 @@
         }
       }
     ],
-    "/response": [
+    "/logs/chat": [
       {
         "json": {
           "headers": {
@@ -1236,7 +1120,7 @@
         }
       }
     ],
-    "/logs/chat": [
+    "/response": [
       {
         "json": {
           "headers": {
@@ -1470,49 +1354,6 @@
         ]
       ]
     },
-    "Vector Store Tool": {
-      "ai_tool": [
-        [
-          {
-            "node": "Response layer SFW",
-            "type": "ai_tool",
-            "index": 0
-          },
-          {
-            "node": "Response layer NSFW",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Embeddings": {
-      "ai_embedding": [
-        [
-          {
-            "node": "Qdrant Retrieve",
-            "type": "ai_embedding",
-            "index": 0
-          },
-          {
-            "node": "Qdrant Insert",
-            "type": "ai_embedding",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "VectorStore Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SerpAPI": {
       "ai_tool": [
         [
@@ -1529,31 +1370,9 @@
         ]
       ]
     },
-    "/response": {
-      "main": [
-        [
-          {
-            "node": "Get Client Metadata",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Log metadata",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Respond to Webhook": {
       "main": [
-        [
-          {
-            "node": "Qdrant Insert",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Respond to Webhook10": {
@@ -1562,28 +1381,6 @@
           {
             "node": "Log error",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Default Data Loader": {
-      "ai_document": [
-        [
-          {
-            "node": "Qdrant Insert",
-            "type": "ai_document",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Recursive Character Text Splitter": {
-      "ai_textSplitter": [
-        [
-          {
-            "node": "Default Data Loader",
-            "type": "ai_textSplitter",
             "index": 0
           }
         ]
@@ -1732,17 +1529,6 @@
         ]
       ]
     },
-    "Qdrant Retrieve": {
-      "ai_vectorStore": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_vectorStore",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Update prompt end": {
       "main": [
         [
@@ -1813,6 +1599,22 @@
           }
         ]
       ]
+    },
+    "/response": {
+      "main": [
+        [
+          {
+            "node": "Get Client Metadata",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -1826,7 +1628,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "fdfa5bbd-f642-415b-b5b5-8201bca92ad2",
+  "versionId": "57a8893e-ff3d-44b0-8733-1623219e225d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"

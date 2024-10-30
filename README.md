@@ -29,8 +29,7 @@
 
 - Model chosen based on SFW boolean (two fine-tuned Gemma2-2B)
 - Join prompt with media tokenization layer output if any, and query model accordingly
-- Postgres chat memory is used for short-term memory
-- QDrant vector store is used for long-term memory
+- Postgres is used for chat-specific memory
 - SerpAPI tool is used for web search if internet connection is available
 - n8n sub-workflow tool is used for retrieving available commands schema and assembling json for command execution
 - Response is stored in chat context and returned
@@ -38,7 +37,7 @@
 ## Endpoints:
 
 - GET /response
-- GET/POST/PUT /commands
+- GET/POST/PUT /client_commands
 - GET/POST/PUT /client_metadata
 - GET /speech_to_text
 - GET /logs/error
