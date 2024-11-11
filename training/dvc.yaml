@@ -1,0 +1,10 @@
+stages:
+  json2df:
+    cmd: python src/json2df.py
+    deps:
+    - data/NSFW
+    - data/SFW
+    - src/json2df.py
+    outs:
+    - data/NSFW.parquet
+    - data/SFW.parquet

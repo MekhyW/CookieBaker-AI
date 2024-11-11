@@ -1,0 +1,6 @@
+pandas
+dvc
+ollama
+paddleocr
+ffmpeg-python
+whisper

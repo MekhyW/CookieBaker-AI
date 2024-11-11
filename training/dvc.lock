@@ -1,0 +1,28 @@
+schema: '2.0'
+stages:
+  json2df:
+    cmd: python src/json2df.py
+    deps:
+    - path: data/NSFW
+      hash: md5
+      md5: ab73618a274c5c7286e212f49ce728f8.dir
+      size: 1356300021
+      nfiles: 9
+    - path: data/SFW
+      hash: md5
+      md5: c73d08e457cdc31752985d00c3cb7e04.dir
+      size: 3059199662
+      nfiles: 21
+    - path: src/json2df.py
+      hash: md5
+      md5: 1dc881d84aacc0283fab3a0f128e66d7
+      size: 2234
+    outs:
+    - path: data/NSFW.parquet
+      hash: md5
+      md5: 3794a7d972dfea5206679572811ef46b
+      size: 129063993
+    - path: data/SFW.parquet
+      hash: md5
+      md5: 0e5e8fb46444167db165a45d83ed99b7
+      size: 359487756
