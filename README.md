@@ -39,7 +39,6 @@
 - GET /response
 - GET/POST/PUT /client_commands
 - GET/POST/PUT /client_metadata
-- GET /speech_to_text
 - GET /logs/error
 - GET /logs/metadata
 - GET /logs/media

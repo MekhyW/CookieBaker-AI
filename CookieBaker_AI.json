@@ -79,7 +79,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1220,
+        1200,
         580
       ]
     },
@@ -180,23 +180,6 @@
     },
     {
       "parameters": {
-        "path": "speech_to_text",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "ca10225a-0cb7-4fbe-b76e-0f6daf1f4484",
-      "name": "/speech_to_text",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        860
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
         "path": "logs/error",
         "responseMode": "responseNode",
         "options": {}
@@ -207,7 +190,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2080
+        1880
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -224,7 +207,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2260
+        2060
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -241,7 +224,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2440
+        2240
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -263,7 +246,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        1180
+        980
       ],
       "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
     },
@@ -284,7 +267,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        1720
+        1520
       ],
       "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
     },
@@ -299,7 +282,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2080
+        1880
       ]
     },
     {
@@ -313,7 +296,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2260
+        2060
       ]
     },
     {
@@ -327,7 +310,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2440
+        2240
       ]
     },
     {
@@ -341,34 +324,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2620
-      ]
-    },
-    {
-      "parameters": {
-        "command": "echo \"test\""
-      },
-      "id": "adeac90a-7a8a-4c71-bf45-c66f92f5a912",
-      "name": "STT",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        360,
-        860
-      ]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "options": {}
-      },
-      "id": "ced7b15a-0ac4-4fe6-b3ca-fe8bcd1b8696",
-      "name": "Respond to Webhook7",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        640,
-        860
+        2420
       ]
     },
     {
@@ -382,7 +338,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        1720
+        1520
       ]
     },
     {
@@ -396,7 +352,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        1180
+        980
       ]
     },
     {
@@ -545,7 +501,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2620
+        2420
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -570,7 +526,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2620
+        2420
       ],
       "credentials": {
         "postgres": {
@@ -599,7 +555,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2440
+        2240
       ],
       "credentials": {
         "postgres": {
@@ -628,7 +584,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2260
+        2060
       ],
       "credentials": {
         "postgres": {
@@ -657,7 +613,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2080
+        1880
       ],
       "credentials": {
         "postgres": {
@@ -686,7 +642,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1880
+        1680
       ],
       "credentials": {
         "postgres": {
@@ -715,7 +671,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1720
+        1520
       ],
       "credentials": {
         "postgres": {
@@ -744,7 +700,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1560
+        1360
       ],
       "credentials": {
         "postgres": {
@@ -773,7 +729,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1340
+        1140
       ],
       "credentials": {
         "postgres": {
@@ -802,7 +758,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1180
+        980
       ],
       "credentials": {
         "postgres": {
@@ -831,7 +787,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1020
+        820
       ],
       "credentials": {
         "postgres": {
@@ -990,32 +946,6 @@
     }
   ],
   "pinData": {
-    "/speech_to_text": [
-      {
-        "json": {
-          "headers": {
-            "host": "localhost:5678",
-            "user-agent": "python-requests/2.32.3",
-            "accept-encoding": "gzip, deflate",
-            "accept": "*/*",
-            "connection": "keep-alive"
-          },
-          "params": {},
-          "query": {
-            "sfw": "True",
-            "chat_title": "Test Chat",
-            "chat_description": "This is a test chat description",
-            "prompt": "Test prompt for chatbot",
-            "sender_name": "Test User",
-            "sender_isadmin": "False",
-            "media": ""
-          },
-          "body": {},
-          "webhookUrl": "http://localhost:5678/webhook-test/response",
-          "executionMode": "test"
-        }
-      }
-    ],
     "/logs/error": [
       {
         "json": {
@@ -1244,28 +1174,6 @@
         ]
       ]
     },
-    "/speech_to_text": {
-      "main": [
-        [
-          {
-            "node": "STT",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "STT": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "/client_metadata": {
       "main": [
         [
@@ -1368,11 +1276,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Respond to Webhook": {
-      "main": [
-        []
       ]
     },
     "Respond to Webhook10": {
@@ -1628,7 +1531,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "57a8893e-ff3d-44b0-8733-1623219e225d",
+  "versionId": "f055c5af-8303-46cb-9b6f-639ebd79d94e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
