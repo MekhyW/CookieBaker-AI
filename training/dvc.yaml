@@ -8,3 +8,12 @@ stages:
     outs:
     - data/NSFW.parquet
     - data/SFW.parquet
+  extract_qa:
+    cmd: python src/qa_pairs.py
+    deps:
+    - data/NSFW.parquet
+    - data/SFW.parquet
+    - src/qa_pairs.py
+    outs:
+    - data/NSFW_qa.parquet
+    - data/SFW_qa.parquet
