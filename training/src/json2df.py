@@ -22,6 +22,7 @@ def json2df(json_file):
     relevant_data = data['messages']
     df = pd.DataFrame(relevant_data)
     df['text'] = df['text'].apply(concatenate_telegram_entities)
+    df['chat_id'] = data['id']
     df = df.drop(columns=['text_entities'])
     return df
 

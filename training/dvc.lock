@@ -15,14 +15,38 @@ stages:
       nfiles: 21
     - path: src/json2df.py
       hash: md5
-      md5: 1dc881d84aacc0283fab3a0f128e66d7
-      size: 2234
+      md5: f231295445e41e41086ce6819b842cbf
+      size: 2266
     outs:
     - path: data/NSFW.parquet
       hash: md5
-      md5: 3794a7d972dfea5206679572811ef46b
-      size: 129063993
+      md5: c0b4a8e5e1a736a48fed7806cd79478c
+      size: 129065701
     - path: data/SFW.parquet
       hash: md5
-      md5: 0e5e8fb46444167db165a45d83ed99b7
-      size: 359487756
+      md5: ccea8d1de186738898a3a83624741a48
+      size: 359490925
+  qa_pairs:
+    cmd: python src/qa_pairs.py
+    deps:
+    - path: data/NSFW.parquet
+      hash: md5
+      md5: c0b4a8e5e1a736a48fed7806cd79478c
+      size: 129065701
+    - path: data/SFW.parquet
+      hash: md5
+      md5: ccea8d1de186738898a3a83624741a48
+      size: 359490925
+    - path: src/qa_pairs.py
+      hash: md5
+      md5: 7dcaa8bfaefed3ab1171334ed48ad70e
+      size: 2345
+    outs:
+    - path: data/NSFW_qa.parquet
+      hash: md5
+      md5: 0d73eb9997fbe700cee8bc1b42a2cf3d
+      size: 40021542
+    - path: data/SFW_qa.parquet
+      hash: md5
+      md5: 2261d9e280f2575e8072781ce182e099
+      size: 130381630
