@@ -15,7 +15,7 @@ def clean_dataframe(df):
 
 def create_message_groups(df):
     df['group'] = (df['from_id'] != df['from_id'].shift()).cumsum()
-    grouped_messages = df.groupby(['from_id', 'group'])['text'].agg('\n'.join).reset_index()
+    grouped_messages = df.groupby(['from_id', 'group'])['text'].agg(' \n '.join).reset_index()
     message_map = df.set_index(['id', 'chat_id'])['text'].to_dict()
     return grouped_messages, message_map
 
