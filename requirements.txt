@@ -1,6 +1,9 @@
 pandas
 dvc
 ollama
+transformers
+datasets
+wandb
 paddleocr
 ffmpeg-python
 whisper
