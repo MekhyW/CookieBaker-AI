@@ -1,5 +1,7 @@
 # CookieBaker-AI
 
+Conversational and command execution AI for Cookiebot and Dynamo projects
+
 ## Project outline:
 
 - n8n self-hosted workflow with containerized services
@@ -11,12 +13,12 @@
 
 ### The pipeline/chain:
 
-0) App receives input from client process, containing: sfw boolean, chat title, chat description, sender message (prompt), sender username/name, sender isadmin, and media (defaults to None)
-1) Media tokenization layer extracts information from media [optional]
-2) Conversation layer generates responses in natural language. It can also access web search tools and custom tools to retrieve chat and/or sender information, as well as the schema of available commands, set by the client
-3) Separate API routes for setting command dictionary and client metadata (as this only has to be done once)
+0) App receives input from client process, containing: sfw boolean, sender message (prompt), sender username/name, and media (defaults to None)
+1) Media tokenization step extracts information from media [optional]
+2) Conversation step generates responses in natural language. It can also access web search tools and custom tools to retrieve chat and/or sender information, as well as the schema of available commands, set by the client
+3) Separate API route for setting command dictionary (as this only has to be done once)
 
-### Media tokenization layer:
+### Media tokenization step:
 
 - According to text input, prompt multimodal model to extract relevant information from input audios, images and videos
 - Audio is converted to text (Whisper)
@@ -25,7 +27,7 @@
 - GIFs are processed as videos
 - Documents are NOT supported for security reasons
 
-### Response layer:
+### Response step:
 
 - Model chosen based on SFW boolean (two fine-tuned Gemma2-2B)
 - Join prompt with media tokenization layer output if any, and query model accordingly
@@ -38,7 +40,6 @@
 
 - GET /response
 - GET/POST/PUT /client_commands
-- GET/POST/PUT /client_metadata
 - GET /logs/error
 - GET /logs/metadata
 - GET /logs/media

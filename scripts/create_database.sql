@@ -1,10 +1,3 @@
-DROP TABLE IF EXISTS client_metadata;
-CREATE TABLE client_metadata (
-    id SERIAL PRIMARY KEY,
-    client_name VARCHAR(255) NOT NULL,
-    client_metadata TEXT NOT NULL
-);
-
 DROP TABLE IF EXISTS client_commands;
 CREATE TABLE client_commands (
     id SERIAL PRIMARY KEY,

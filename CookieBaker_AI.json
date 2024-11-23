@@ -31,7 +31,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        580,
+        520,
         560
       ]
     },
@@ -135,34 +135,6 @@
           "value": ""
         }
       },
-      "id": "12e14126-a99c-4414-98f2-e62d5fddb453",
-      "name": "Log metadata",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        300,
-        380
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
       "id": "80c00307-5e47-41c9-bf00-e156cc24692c",
       "name": "Log extracted text",
       "type": "n8n-nodes-base.postgres",
@@ -190,7 +162,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        1880
+        1380
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -207,7 +179,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2060
+        1560
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -224,7 +196,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2240
+        1740
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -252,27 +224,6 @@
     },
     {
       "parameters": {
-        "multipleMethods": true,
-        "httpMethod": [
-          "POST",
-          "PUT",
-          "GET"
-        ],
-        "path": "client_metadata",
-        "options": {}
-      },
-      "id": "8241e0bd-9bda-4b92-a3de-82ebb087395b",
-      "name": "/client_metadata",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1520
-      ],
-      "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "options": {}
       },
@@ -282,7 +233,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        1880
+        1380
       ]
     },
     {
@@ -296,7 +247,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2060
+        1560
       ]
     },
     {
@@ -310,7 +261,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2240
+        1740
       ]
     },
     {
@@ -324,21 +275,7 @@
       "typeVersion": 1.1,
       "position": [
         640,
-        2420
-      ]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "options": {}
-      },
-      "id": "dae4673d-2397-4384-a102-b9d4d597b10d",
-      "name": "Respond to Webhook8",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        640,
-        1520
+        1920
       ]
     },
     {
@@ -462,35 +399,6 @@
     },
     {
       "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "f97b699a-589c-44b7-8dbb-4407a7ce45aa",
-      "name": "Get Client Metadata",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        300,
-        560
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "path": "logs/responses",
         "responseMode": "responseNode",
         "options": {}
@@ -501,7 +409,7 @@
       "typeVersion": 2,
       "position": [
         120,
-        2420
+        1920
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -526,7 +434,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2420
+        1920
       ],
       "credentials": {
         "postgres": {
@@ -555,7 +463,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2240
+        1740
       ],
       "credentials": {
         "postgres": {
@@ -584,7 +492,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        2060
+        1560
       ],
       "credentials": {
         "postgres": {
@@ -613,94 +521,7 @@
       "typeVersion": 2.5,
       "position": [
         360,
-        1880
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "5c9401ea-4810-43bf-b7f1-b4600b9865a7",
-      "name": "get client metadata",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        360,
-        1680
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "ef898970-49af-41ed-aab3-7c1264e1cec1",
-      "name": "update client metadata",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        360,
-        1520
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "upsert",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "id": "b829b7fd-21c0-49b5-b089-a9150beb96bc",
-      "name": "create client metadata",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        360,
-        1360
+        1380
       ],
       "credentials": {
         "postgres": {
@@ -818,7 +639,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        440,
+        340,
         560
       ]
     },
@@ -1174,31 +995,6 @@
         ]
       ]
     },
-    "/client_metadata": {
-      "main": [
-        [
-          {
-            "node": "create client metadata",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "update client metadata",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "get client metadata",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "/commands": {
       "main": [
         [
@@ -1289,17 +1085,6 @@
         ]
       ]
     },
-    "Get Client Metadata": {
-      "main": [
-        [
-          {
-            "node": "Update prompt beginning",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "/logs/chat": {
       "main": [
         [
@@ -1349,39 +1134,6 @@
         [
           {
             "node": "Respond to Webhook3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "get client metadata": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "update client metadata": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "create client metadata": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook8",
             "type": "main",
             "index": 0
           }
@@ -1507,12 +1259,7 @@
       "main": [
         [
           {
-            "node": "Get Client Metadata",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Log metadata",
+            "node": "Update prompt beginning",
             "type": "main",
             "index": 0
           }
@@ -1531,7 +1278,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "f055c5af-8303-46cb-9b6f-639ebd79d94e",
+  "versionId": "0aaffb9c-a7f6-455a-84ca-6ef7bcd863cf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
