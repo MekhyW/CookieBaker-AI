@@ -20,12 +20,9 @@ Conversational and command execution AI for Cookiebot and Dynamo projects
 
 ### Media tokenization step:
 
-- According to text input, prompt multimodal model to extract relevant information from input audios, images and videos
-- Audio is converted to text (Whisper)
-- Images are processed with OCR and visual-text question answering models (PadddleOCR and LLaVA-Phi3-Mini)
-- Videos are separated into audio and first frame, then processed as audio and image
-- GIFs are processed as videos
-- Documents are NOT supported for security reasons
+- At least for now, only images are supported. Text-to-speech and video-to-image should be done by the client before sending to the endpoint
+- The image is first pre-processed with an OCR model (PaddleOCR)
+- The image is then processed with a visual-text question answering model (LLaVA-Phi3-Mini)
 
 ### Response step:
 
@@ -38,9 +35,9 @@ Conversational and command execution AI for Cookiebot and Dynamo projects
 
 ## Endpoints:
 
-- GET /response
-- GET/POST/PUT /client_commands
-- GET /logs/error
-- GET /logs/metadata
-- GET /logs/media
-- GET /logs/chat
+- GET /response {client_name (string), chat_id (string), sfw (boolean), prompt (string), sender_name (string), sender_isadmin (boolean), media (string)}
+- GET/POST/PUT /commands {unique_id (string, POST only), client_name (string), commands (json, POST and PUT only)}
+- GET /logs/error {client_name (string)}
+- GET /logs/metadata {client_name (string)}
+- GET /logs/media {client_name (string)}
+- GET /logs/chat {client_name (string)}

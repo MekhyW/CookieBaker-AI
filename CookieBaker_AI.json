@@ -13,7 +13,7 @@
           "conditions": [
             {
               "id": "290bd9ba-fbfa-4ab4-ab33-0cc2e7ad5635",
-              "leftValue": "={{ $json.query.media }}",
+              "leftValue": "={{ $('/response').item.json.query.media }}",
               "rightValue": 0,
               "operator": {
                 "type": "string",
@@ -37,19 +37,6 @@
     },
     {
       "parameters": {
-        "command": "echo \"test\""
-      },
-      "id": "44ef36b8-5cca-42d8-ae97-6a33bf9d979e",
-      "name": "Media tokenization layer",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        800,
-        420
-      ]
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -60,7 +47,7 @@
           "conditions": [
             {
               "id": "00d4c97b-7ade-4ef7-a2c6-3bf8437a2da9",
-              "leftValue": "={{ $json.query.sfw }}",
+              "leftValue": "={{ $('/response').item.json.query.sfw }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -90,8 +77,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        120,
-        100
+        2020,
+        -20
       ]
     },
     {
@@ -103,17 +90,59 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "log_data": "={{ $json.execution.error }}",
+            "log_type": "error"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
       },
       "id": "cd31de80-32f4-4286-9351-6bfb15184bfc",
       "name": "Log error",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        580,
-        100
+        2480,
+        -20
       ],
       "credentials": {
         "postgres": {
@@ -131,9 +160,71 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
+            "log_type": "media",
+            "log_data": "={{ $('Media tokenization step').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
       },
       "id": "80c00307-5e47-41c9-bf00-e156cc24692c",
       "name": "Log extracted text",
@@ -152,79 +243,8 @@
     },
     {
       "parameters": {
-        "path": "logs/error",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "02148f93-2a3e-4705-9104-1633eb4033b8",
-      "name": "/logs/error",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1380
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "path": "logs/metadata",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "117335c4-d026-4a62-a410-6bbc5e2e8e4b",
-      "name": "/logs/metadata",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1560
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "path": "logs/media",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "f660ff96-832a-41dc-bebc-25a33b01f833",
-      "name": "/logs/media",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1740
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "multipleMethods": true,
-        "httpMethod": [
-          "POST",
-          "PUT",
-          "GET"
-        ],
-        "path": "commands",
-        "options": {}
-      },
-      "id": "dd1a4999-58a4-4043-8e3e-c21259d466ca",
-      "name": "/commands",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        980
-      ],
-      "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
-    },
-    {
-      "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('get error logs').item.json }}",
         "options": {}
       },
       "id": "d81d1396-633c-4de7-8cdf-a4e40b5ca09f",
@@ -239,6 +259,7 @@
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('get metadata logs').item.json }}",
         "options": {}
       },
       "id": "c376c7ea-8396-4e64-8a53-93dec38c1143",
@@ -253,6 +274,7 @@
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('get media logs').item.json }}",
         "options": {}
       },
       "id": "b7a2b3c9-aec4-40ab-a7e0-1d11bc79c93d",
@@ -267,6 +289,7 @@
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('get chat logs').item.json }}",
         "options": {}
       },
       "id": "716f323c-ed9b-403c-86a0-4c4e70492952",
@@ -281,6 +304,7 @@
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('update available commands').item.json }}",
         "options": {}
       },
       "id": "49cf696a-da73-42ab-98d7-626b0afbecf2",
@@ -295,6 +319,7 @@
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $json.execution.error }}",
         "options": {}
       },
       "id": "dd754e49-8a33-455f-8170-b437b1249332",
@@ -302,13 +327,14 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        360,
-        100
+        2260,
+        -20
       ]
     },
     {
       "parameters": {
         "respondWith": "json",
+        "responseBody": "={{ $('Response step NSFW').item.json }}",
         "options": {}
       },
       "id": "9f1fd43a-1d7c-4d89-a1c5-f59a7881ce5c",
@@ -316,8 +342,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2040,
-        500
+        2020,
+        620
       ]
     },
     {
@@ -361,6 +387,7 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
+        "sessionKey": "={{ $('/response').item.json.query.chat_id }}",
         "contextWindowLength": 10
       },
       "id": "fb8cff9c-7b65-43ee-b68a-49cdb6d5d6e5",
@@ -368,8 +395,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.1,
       "position": [
-        1800,
-        840
+        1760,
+        860
       ],
       "credentials": {
         "postgres": {
@@ -387,8 +414,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "typeVersion": 1,
       "position": [
-        2040,
-        840
+        2000,
+        860
       ],
       "credentials": {
         "serpApi": {
@@ -396,23 +423,6 @@
           "name": "SerpAPI account"
         }
       }
-    },
-    {
-      "parameters": {
-        "path": "logs/responses",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "90264f2a-82f4-487e-a8fc-e16e73be23a9",
-      "name": "/logs/chat",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1920
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
     },
     {
       "parameters": {
@@ -424,8 +434,36 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "logs"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "log_type",
+              "value": "chat"
+            },
+            {
+              "column": "client_name",
+              "value": "={{ $json.query.client_name }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "id",
+            "log_data",
+            "chat_id"
+          ]
         }
       },
       "id": "ab36d84b-be7f-4606-bd12-edd5ed1afb49",
@@ -453,8 +491,36 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "logs"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "log_type",
+              "value": "media"
+            },
+            {
+              "column": "client_name",
+              "value": "={{ $json.query.client_name }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "id",
+            "log_data",
+            "chat_id"
+          ]
         }
       },
       "id": "2746616a-d43d-4285-952b-ca08a72520b8",
@@ -482,8 +548,36 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "logs"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "log_type",
+              "value": "metadata"
+            },
+            {
+              "column": "client_name",
+              "value": "={{ $json.query.client_name }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "id",
+            "log_data",
+            "chat_id"
+          ]
         }
       },
       "id": "b64f4252-d987-4fb8-a14c-6365c72b39be",
@@ -511,8 +605,36 @@
         },
         "table": {
           "__rl": true,
+          "value": "logs",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "logs"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "log_type",
+              "value": "error"
+            },
+            {
+              "column": "client_name",
+              "value": "={{ $json.query.client_name }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "id",
+            "log_data",
+            "chat_id"
+          ]
         }
       },
       "id": "dff61f07-56aa-4a64-9f9f-081e1d359a46",
@@ -540,8 +662,23 @@
         },
         "table": {
           "__rl": true,
+          "value": "client_commands",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "client_commands"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "client_name",
+              "value": "={{ $json.query.client_name }}"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "client_commands"
+          ]
         }
       },
       "id": "c0ca0a88-2f57-4f48-af8d-6c11c80732d3",
@@ -569,9 +706,52 @@
         },
         "table": {
           "__rl": true,
+          "value": "client_commands",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "client_commands"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $json.query.client_name }}",
+            "client_commands": "={{ $json.query.commands }}"
+          },
+          "matchingColumns": [
+            "client_name"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "client_commands",
+              "displayName": "client_commands",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
       },
       "id": "c6851f5a-6851-4bba-8e01-446f4a7da099",
       "name": "update available commands",
@@ -598,9 +778,52 @@
         },
         "table": {
           "__rl": true,
+          "value": "client_commands",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "client_commands"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $json.query.client_name }}",
+            "client_commands": "={{ $json.query.commands }}",
+            "id": "={{ $json.query.unique_id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "client_commands",
+              "displayName": "client_commands",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
       },
       "id": "bac2eeef-2cec-4b7d-ab5d-4b5542894394",
       "name": "create available commands",
@@ -619,6 +842,16 @@
     },
     {
       "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0a9943ef-8bfc-4b5e-8bba-e008e87538c2",
+              "name": "LLM_input",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "27dd930a-fdaa-4bda-9f52-7e592c64c26e",
@@ -632,6 +865,16 @@
     },
     {
       "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d233c13b-78b0-4152-8b1f-21e2798523e3",
+              "name": "LLM_input",
+              "value": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $json.query.sender_name + \" says: \" + \"'\" + $json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
+              "type": "string"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "b7f6b84c-5b61-4d31-9b37-ca6ddfca8f2a",
@@ -644,42 +887,14 @@
       ]
     },
     {
-      "parameters": {
-        "options": {}
-      },
-      "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
-      "name": "Response layer NSFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1440,
-        700
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
-      "name": "Response layer SFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1440,
-        360
-      ],
-      "alwaysOutputData": true
-    },
-    {
       "parameters": {},
       "id": "8537afb3-8ee2-4b92-ab1f-448035ab6b50",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        2040,
-        280
+        2020,
+        180
       ]
     },
     {
@@ -692,8 +907,23 @@
         },
         "table": {
           "__rl": true,
+          "value": "client_commands",
           "mode": "list",
-          "value": ""
+          "cachedResultName": "client_commands"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "client_name",
+              "value": "={{ $('/response').item.json.query.client_name }}"
+            }
+          ]
+        },
+        "options": {
+          "outputColumns": [
+            "client_commands"
+          ]
         }
       },
       "id": "0c9d3913-a4ad-43cb-a122-f32b0f450b5f",
@@ -701,8 +931,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2280,
-        280
+        2260,
+        180
       ],
       "credentials": {
         "postgres": {
@@ -713,11 +943,8 @@
     },
     {
       "parameters": {
-        "fieldsToAggregate": {
-          "fieldToAggregate": [
-            {}
-          ]
-        },
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "commands",
         "options": {}
       },
       "id": "8fe22ee0-3aac-436b-8da5-a91fcdd5c6a4",
@@ -725,27 +952,447 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2500,
-        280
+        2480,
+        180
       ]
     },
     {
       "parameters": {
         "name": "get_commands",
+        "description": "Call this tool to get a list of commands that can be executed, including their descriptions and parameters.",
         "workflowId": {
           "__rl": true,
           "value": "mywj1XM6RPnWoVNB",
           "mode": "list",
           "cachedResultName": "CookieBaker-AI"
-        }
+        },
+        "responsePropertyName": "commands"
       },
       "id": "ea1521b8-05c5-4309-b2fb-d2b958c0776f",
       "name": "Get Commands",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1940,
-        840
+        1900,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "path": "logs/media",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f660ff96-832a-41dc-bebc-25a33b01f833",
+      "name": "/logs/media",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        1740
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/metadata",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "117335c4-d026-4a62-a410-6bbc5e2e8e4b",
+      "name": "/logs/metadata",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        1560
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/error",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "02148f93-2a3e-4705-9104-1633eb4033b8",
+      "name": "/logs/error",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        1380
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "path": "logs/chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "90264f2a-82f4-487e-a8fc-e16e73be23a9",
+      "name": "/logs/chat",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        1920
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $json.query.client_name }}",
+            "chat_id": "={{ $json.query.chat_id }}",
+            "log_type": "metadata",
+            "log_data": "={{ $json.query }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "53dc3356-eef0-46a7-81d6-571e249d5ec3",
+      "name": "Log metadata",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        340,
+        380
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "command": "echo \"test\""
+      },
+      "id": "44ef36b8-5cca-42d8-ae97-6a33bf9d979e",
+      "name": "Media tokenization step",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        800,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('Response step SFW').item.json }}",
+        "options": {}
+      },
+      "id": "570928f7-e36b-4ec5-9b45-eb5d76c78381",
+      "name": "Respond to Webhook1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2020,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
+            "log_type": "chat",
+            "log_data": "={{ $('Response step SFW').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d06aee5c-156b-4268-8f98-427c9bb696bb",
+      "name": "Log chat response SFW",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2260,
+        440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ json.query.client_name }}",
+            "chat_id": "={{ json.query.chat_id }}",
+            "log_type": "chat",
+            "log_data": "={{ $('Response step NSFW').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bda14bd9-d66c-4aa4-8f39-5b681e4a1825",
+      "name": "Log chat response NSFW",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2260,
+        620
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST",
+          "PUT",
+          "GET"
+        ],
+        "path": "commands",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "dd1a4999-58a4-4043-8e3e-c21259d466ca",
+      "name": "/commands",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        980
+      ],
+      "webhookId": "6b67c935-685a-4fe3-aa4d-9fc7adbda00f"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('get available commands').item.json }}",
+        "options": {}
+      },
+      "id": "47ceb34b-3e89-4e56-8178-5bef334a158a",
+      "name": "Respond to Webhook11",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        1140
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('create available commands').item.json }}",
+        "options": {}
+      },
+      "id": "35fdb3b8-bf68-4b9e-b00c-eff4c0326335",
+      "name": "Respond to Webhook12",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        820
       ]
     },
     {
@@ -764,10 +1411,42 @@
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $LLM_input }}",
+        "options": {}
+      },
+      "id": "18419240-ad7e-434d-bf01-f2c36cc1b15e",
+      "name": "Response step NSFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1440,
+        700
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $LLM_input }}",
+        "options": {}
+      },
+      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
+      "name": "Response step SFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1440,
+        360
+      ],
+      "alwaysOutputData": true
     }
   ],
   "pinData": {
-    "/logs/error": [
+    "/logs/media": [
       {
         "json": {
           "headers": {
@@ -819,7 +1498,7 @@
         }
       }
     ],
-    "/logs/media": [
+    "/logs/error": [
       {
         "json": {
           "headers": {
@@ -903,7 +1582,7 @@
       "main": [
         [
           {
-            "node": "Media tokenization layer",
+            "node": "Media tokenization step",
             "type": "main",
             "index": 0
           }
@@ -917,34 +1596,18 @@
         ]
       ]
     },
-    "Media tokenization layer": {
-      "main": [
-        [
-          {
-            "node": "Update prompt end",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Log extracted text",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SFW/NSFW": {
       "main": [
         [
           {
-            "node": "Response layer SFW",
+            "node": "Response step SFW",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Response layer NSFW",
+            "node": "Response step NSFW",
             "type": "main",
             "index": 0
           }
@@ -962,69 +1625,11 @@
         ]
       ]
     },
-    "/logs/error": {
-      "main": [
-        [
-          {
-            "node": "get error logs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/logs/metadata": {
-      "main": [
-        [
-          {
-            "node": "get metadata logs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/logs/media": {
-      "main": [
-        [
-          {
-            "node": "get media logs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/commands": {
-      "main": [
-        [
-          {
-            "node": "create available commands",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "update available commands",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "get available commands",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SFW responder": {
       "ai_languageModel": [
         [
           {
-            "node": "Response layer SFW",
+            "node": "Response step SFW",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -1035,7 +1640,7 @@
       "ai_languageModel": [
         [
           {
-            "node": "Response layer NSFW",
+            "node": "Response step NSFW",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -1046,12 +1651,12 @@
       "ai_memory": [
         [
           {
-            "node": "Response layer SFW",
+            "node": "Response step SFW",
             "type": "ai_memory",
             "index": 0
           },
           {
-            "node": "Response layer NSFW",
+            "node": "Response step NSFW",
             "type": "ai_memory",
             "index": 0
           }
@@ -1062,12 +1667,12 @@
       "ai_tool": [
         [
           {
-            "node": "Response layer SFW",
+            "node": "Response step SFW",
             "type": "ai_tool",
             "index": 0
           },
           {
-            "node": "Response layer NSFW",
+            "node": "Response step NSFW",
             "type": "ai_tool",
             "index": 0
           }
@@ -1079,17 +1684,6 @@
         [
           {
             "node": "Log error",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/logs/chat": {
-      "main": [
-        [
-          {
-            "node": "get chat logs",
             "type": "main",
             "index": 0
           }
@@ -1144,7 +1738,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook9",
+            "node": "Respond to Webhook11",
             "type": "main",
             "index": 0
           }
@@ -1166,7 +1760,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook9",
+            "node": "Respond to Webhook12",
             "type": "main",
             "index": 0
           }
@@ -1189,28 +1783,6 @@
         [
           {
             "node": "SFW/NSFW",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response layer NSFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response layer SFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -1243,13 +1815,120 @@
       "ai_tool": [
         [
           {
-            "node": "Response layer SFW",
+            "node": "Response step SFW",
             "type": "ai_tool",
             "index": 0
           },
           {
-            "node": "Response layer NSFW",
+            "node": "Response step NSFW",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/media": {
+      "main": [
+        [
+          {
+            "node": "get media logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/metadata": {
+      "main": [
+        [
+          {
+            "node": "get metadata logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/error": {
+      "main": [
+        [
+          {
+            "node": "get error logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/chat": {
+      "main": [
+        [
+          {
+            "node": "get chat logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Media tokenization step": {
+      "main": [
+        [
+          {
+            "node": "Update prompt end",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log extracted text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Log chat response SFW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Log chat response NSFW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/commands": {
+      "main": [
+        [
+          {
+            "node": "create available commands",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "update available commands",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "get available commands",
+            "type": "main",
             "index": 0
           }
         ]
@@ -1260,6 +1939,33 @@
         [
           {
             "node": "Update prompt beginning",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step NSFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step SFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
             "type": "main",
             "index": 0
           }
@@ -1278,7 +1984,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "0aaffb9c-a7f6-455a-84ca-6ef7bcd863cf",
+  "versionId": "0e4ce411-efd9-407d-bac6-4d6bf6c66001",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
