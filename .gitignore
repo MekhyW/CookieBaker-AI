@@ -162,3 +162,4 @@ cython_debug/
 training/data/SFW/*.json
 training/data/NSFW/*.json
 *.gguf
+training/notebooks/wandb/*
