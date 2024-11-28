@@ -36,8 +36,12 @@ Conversational and command execution AI for Cookiebot and Dynamo projects
 ## Endpoints:
 
 - GET /response {client_name (string), chat_id (string), sfw (boolean), prompt (string), sender_name (string), sender_isadmin (boolean), media (string)}
-- GET/POST/PUT /commands {unique_id (string, POST only), client_name (string), commands (json, POST and PUT only)}
+- GET /commands {client_name (string)}
+- POST /commands {unique_id (string), client_name (string), commands (json)}
+- PUT /commands {client_name (string), commands (json)}
 - GET /logs/error {client_name (string)}
 - GET /logs/metadata {client_name (string)}
 - GET /logs/media {client_name (string)}
 - GET /logs/chat {client_name (string)}
+- GET /healthz
+- GET /metrics
