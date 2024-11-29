@@ -1,10 +1,8 @@
 import requests
 
 def make_get_request():
-    # Define the base URL
     url = 'http://localhost:5678/webhook-test/response'
     
-    # Define the test parameters
     params = {
         'sfw': True,
         'chat_title': 'Test Chat',
@@ -15,10 +13,8 @@ def make_get_request():
         'media': ''
     }
 
-    # Make the GET request
     response = requests.get(url, params=params)
 
-    # Print the response
     if response.status_code == 200:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {response.text}")

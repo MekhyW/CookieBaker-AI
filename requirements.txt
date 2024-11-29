@@ -4,5 +4,4 @@ ollama
 transformers
 datasets
 wandb
-paddleocr
 openai
