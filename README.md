@@ -21,8 +21,7 @@ Conversational and command execution AI for Cookiebot and Dynamo projects
 ### Media tokenization step:
 
 - At least for now, only images are supported. Text-to-speech and video-to-image should be done by the client before sending to the endpoint
-- The image is first pre-processed with an OCR model (PaddleOCR)
-- The image is then processed with a visual-text question answering model (LLaVA-Phi3-Mini)
+- The image is processed with a visual-text question answering model (LLaVA-Phi3)
 
 ### Response step:
 

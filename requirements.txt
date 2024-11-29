@@ -5,5 +5,4 @@ transformers
 datasets
 wandb
 paddleocr
-ffmpeg-python
-whisper
+openai

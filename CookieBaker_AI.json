@@ -153,96 +153,6 @@
     },
     {
       "parameters": {
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "logs",
-          "mode": "list",
-          "cachedResultName": "logs"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "client_name": "={{ $('/response').item.json.query.client_name }}",
-            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
-            "log_type": "media",
-            "log_data": "={{ $('Media tokenization step').item.json }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "client_name",
-              "displayName": "client_name",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "chat_id",
-              "displayName": "chat_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "log_type",
-              "displayName": "log_type",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "log_data",
-              "displayName": "log_data",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "object",
-              "canBeUsedToMatch": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "80c00307-5e47-41c9-bf00-e156cc24692c",
-      "name": "Log extracted text",
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        1020,
-        160
-      ],
-      "credentials": {
-        "postgres": {
-          "id": "1HXosNollNYXWPfJ",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "responseBody": "={{ $('get error logs').item.json }}",
         "options": {}
@@ -1463,6 +1373,7 @@
     },
     {
       "parameters": {
+        "model": "llava-phi3:latest",
         "options": {}
       },
       "id": "a21234d3-ff7e-4c68-8a81-2ce15b683f3c",
@@ -1505,6 +1416,96 @@
         700,
         320
       ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
+            "log_type": "media",
+            "log_data": "={{ $('Media tokenization step').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80c00307-5e47-41c9-bf00-e156cc24692c",
+      "name": "Log caption",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1020,
+        160
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -2055,7 +2056,7 @@
       "main": [
         [
           {
-            "node": "Log extracted text",
+            "node": "Log caption",
             "type": "main",
             "index": 0
           },
@@ -2068,7 +2069,7 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Sao_Paulo",
@@ -2079,7 +2080,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "80b4cc7b-ab59-4220-928c-6ede29012fda",
+  "versionId": "e19bccb2-db84-47b2-861b-8c82eeb4e6d7",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
