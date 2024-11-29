@@ -42,7 +42,7 @@ x-init-ollama: &init-ollama
   entrypoint: /bin/sh
   command:
     - "-c"
-    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull llava-phi3"
+    - "sleep 3; OLLAMA_HOST=ollama:11434 ollama pull llava-phi3 && OLLAMA_HOST=ollama:11434 ollama pull MekhyW/cookiebaker-sfw && OLLAMA_HOST=ollama:11434 ollama pull MekhyW/cookiebaker-nsfw"
 
 services:
   postgres:

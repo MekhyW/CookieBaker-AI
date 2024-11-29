@@ -258,6 +258,7 @@
     },
     {
       "parameters": {
+        "model": "MekhyW/cookiebaker-sfw:latest",
         "options": {}
       },
       "id": "1dfb9a89-ef68-448e-80d6-5d0994c70050",
@@ -277,6 +278,7 @@
     },
     {
       "parameters": {
+        "model": "MekhyW/cookiebaker-nsfw:latest",
         "options": {}
       },
       "id": "e076bb2e-8165-4ca6-a20d-19787b4745a6",
@@ -2080,7 +2082,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "e19bccb2-db84-47b2-861b-8c82eeb4e6d7",
+  "versionId": "d70576e9-8c1e-45c2-8f39-0ba60a4eace6",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
