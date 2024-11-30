@@ -37,6 +37,96 @@
         
   <div class="section" id="what-is-this">
 <h1>What is this?<a class="headerlink" href="#what-is-this" title="Permalink to this headline">¶</a></h1>
+<p>CookieBaker is a project that aims to provide self-hosted and self-contained conversational and command execution intelligence for two other projects of mine: Cookiebot (a group chatbot for Telegram) and Dynamo (a wearable system with a voice assistant) but can be used in other projects as well.</p>
+<p>A client application can use the provided API endpoints to send a list of commands it can execute, with their arguments and descriptions, and send user chat messages. These messages can include a URL to a media file (only images are supported at the moment) to be included as part of the prompt. CookieBaker can then generate natural language chat responses, as well as structured command intents according to the client-defined commands.</p>
+<p>Additionally, the workflow logs all messages, responses, media captions and errors to the database, and provides API endpoints to access them for debugging and model observability.</p>
+<div class="section" id="explanatory-video">
+<h2>Explanatory Video<a class="headerlink" href="#explanatory-video" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="services">
+<h2>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h2>
+<p>The project is containerized and uses the following services:</p>
+<ul class="simple">
+<li><p><strong>n8n</strong>: A workflow automation tool that allows to create complex workflows by connecting different actions (endpoints) together. In this project, it is used to orchestrate the chat and command execution workflows.</p></li>
+<li><p><strong>Ollama</strong>: An open-source, self-hosted tool for running large language models locally.</p></li>
+<li><p><strong>PostgreSQL</strong>: A powerful, open-source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.</p></li>
+<li><p><strong>SerpAPI</strong>: A tool that allows models to search the web for information. It is included in n8n as a tool node.</p></li>
+</ul>
+<p>The following technologies were also used for development of the models:</p>
+<ul class="simple">
+<li><p><strong>DVC</strong>: A version control system for machine learning projects.</p></li>
+<li><p><strong>Hugging Face</strong>: A platform for machine learning and natural language processing research and development.</p></li>
+<li><p><strong>Weights &amp; Biases</strong>: A platform for experiment tracking, model observability and collaboration.</p></li>
+</ul>
+</div>
+<div class="section" id="pipeline-steps">
+<h2>Pipeline Steps<a class="headerlink" href="#pipeline-steps" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>App receives request from client process to set up list of commands available for execution</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/pipeline_1.png"><img alt="Pipeline step 1" class="align-center" src="_images/pipeline_1.png" style="width: 400px;" /></a>
+<ol class="arabic simple" start="2">
+<li><p>App receives request from client process to generate a response, including the necessary metadata. If the message contains a media URL, it is downloaded, resized (to prevent tokenization issues) and caption is generated using a multimodal model.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/pipeline_2.png"><img alt="Pipeline step 2" class="align-center" src="_images/pipeline_2.png" style="width: 600px;" /></a>
+<ol class="arabic simple" start="3">
+<li><p>A model is chosen according to the SFW/NSFW boolean, and it is used to generate a response. The models have access to the history of the conversation of the corresponding chat_id, can search the web using SerpAPI if internet access is available, and can fetch the available commands according to the client-defined list. The responses are returned as webhook responses to the client and logged in the database.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/pipeline_3.png"><img alt="Pipeline step 3" class="align-center" src="_images/pipeline_3.png" style="width: 800px;" /></a>
+<ol class="arabic simple" start="4">
+<li><p>If an error occurs at any point, it is logged in the database and a message is returned to the client.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/pipeline_4.png"><img alt="Pipeline step 4" class="align-center" src="_images/pipeline_4.png" style="width: 400px;" /></a>
+<ol class="arabic simple" start="5">
+<li><p>All logs can be accessed using separate API endpoints provided by the project.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/pipeline_5.png"><img alt="Pipeline step 5" class="align-center" src="_images/pipeline_5.png" style="width: 400px;" /></a>
+</div>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<p>The project utilizes three specialized Large Language Models, all of which are now public and pulled automatically from the Ollama servers:</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Describer Model</strong></p></td>
+<td><div class="line-block">
+<div class="line"><strong>Purpose</strong>: Generate captions for media in user messages</div>
+<div class="line"><strong>Type</strong>: Multimodal (image + text input)</div>
+<div class="line"><strong>Base Model</strong>: <code class="docutils literal notranslate"><span class="pre">LLaVA-Phi3</span></code></div>
+<div class="line"><strong>Architecture</strong>: Small LLaVa model fine-tuned from Phi 3 Mini 4k</div>
+<div class="line"><strong>Performance</strong>: Comparable to original LLaVA model</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>SFW Model</strong></p></td>
+<td><div class="line-block">
+<div class="line"><strong>Purpose</strong>: Generate responses for Safe-For-Work chats</div>
+<div class="line"><strong>Base Model</strong>: <code class="docutils literal notranslate"><span class="pre">Gemma2-2b-it-abliterated</span></code></div>
+<div class="line"><strong>Architecture</strong>: Custom fine-tuned adapter + Gemma 2 (2B parameters)</div>
+<div class="line"><strong>Note</strong>: System messages implemented via user message prefixing</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>NSFW Model</strong></p></td>
+<td><div class="line-block">
+<div class="line"><strong>Purpose</strong>: Generate responses for NSFW (18+) chats</div>
+<div class="line"><strong>Base Model</strong>: <code class="docutils literal notranslate"><span class="pre">Gemma2-2b-it-abliterated</span></code></div>
+<div class="line"><strong>Architecture</strong>: Same as SFW model with different adapter</div>
+<div class="line"><strong>Difference</strong>: Uses NSFW chat data for training</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
 
