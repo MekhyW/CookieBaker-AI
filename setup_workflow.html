@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Setup Workflow &#8212; CookieBaker AI 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Endpoints" href="api_endpoints.html" />
+    <link rel="prev" title="What is this?" href="what_is_this.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>CookieBaker AI 1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Setup Workflow</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="what_is_this.html">What is this?</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api_endpoints.html">API Endpoints</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="setup-workflow">
+<h1>Setup Workflow<a class="headerlink" href="#setup-workflow" title="Permalink to this headline">¶</a></h1>
+<p>The docker compose file is the easiest way to get started. It will install all the necessary services and dependencies to run the workflow. The necessary models are already published on Ollama and can be pulled at scale.</p>
+<div class="section" id="core-services">
+<h2>Core Services<a class="headerlink" href="#core-services" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p><strong>PostgreSQL Database (postgres)</strong></p>
+<ul class="simple">
+<li><p>Persistent storage for workflow data</p></li>
+<li><p>Runs on port 5432</p></li>
+<li><p>Automatically initializes required tables (using the script <code class="docutils literal notranslate"><span class="pre">create_tables.sql</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>n8n Workflow Engine</strong></p>
+<ul>
+<li><p>Two containers:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n8n-import</span></code>: Imports initial workflows and credentials</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n8n</span></code>: Main workflow engine running on port 5678</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Connects to PostgreSQL for data storage</p></li>
+<li><p>Stores workflows in persistent volume</p></li>
+</ul>
+</li>
+<li><p><strong>Ollama Model Server</strong></p>
+<ul>
+<li><p>Supports both CPU and GPU configurations</p></li>
+<li><p>Runs on port 11434</p></li>
+<li><p>Automatically pulls required models:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">llava-phi3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MekhyW/cookiebaker-sfw</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MekhyW/cookiebaker-nsfw</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The system uses Docker profiles to manage different hardware configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For CPU-only deployment</span>
+docker compose --profile cpu up -d
+
+<span class="c1"># For NVIDIA GPU deployment</span>
+docker compose --profile gpu-nvidia up -d
+</pre></div>
+</div>
+</div>
+<div class="section" id="key-components">
+<h2>Key Components<a class="headerlink" href="#key-components" title="Permalink to this headline">¶</a></h2>
+<p>Here are the key sections of the docker-compose.yml file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Volume definitions for persistent storage</span>
+<span class="nt">volumes</span><span class="p">:</span>
+  <span class="nt">n8n_storage</span><span class="p">:</span>        <span class="c1"># Stores n8n data</span>
+  <span class="nt">postgres_storage</span><span class="p">:</span>    <span class="c1"># Stores database data</span>
+  <span class="nt">ollama_storage</span><span class="p">:</span>     <span class="c1"># Stores model data</span>
+
+<span class="c1"># Network configuration</span>
+<span class="nt">networks</span><span class="p">:</span>
+  <span class="nt">demo</span><span class="p">:</span>               <span class="c1"># Internal network for service communication</span>
+</pre></div>
+</div>
+<p>The services are configured with health checks and dependencies to ensure proper startup order:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">services</span><span class="p">:</span>
+  <span class="nt">postgres</span><span class="p">:</span>
+    <span class="c1"># ... configuration ...</span>
+    <span class="nt">healthcheck</span><span class="p">:</span>
+      <span class="nt">test</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;CMD-SHELL&#39;</span><span class="p p-Indicator">,</span> <span class="s">&#39;pg_isready</span><span class="nv"> </span><span class="s">...&#39;</span><span class="p p-Indicator">]</span>
+      <span class="nt">interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5s</span>
+      <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5s</span>
+      <span class="nt">retries</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+
+  <span class="nt">n8n</span><span class="p">:</span>
+    <span class="c1"># ... configuration ...</span>
+    <span class="nt">depends_on</span><span class="p">:</span>
+      <span class="nt">postgres</span><span class="p">:</span>
+        <span class="nt">condition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
+      <span class="nt">n8n-import</span><span class="p">:</span>
+        <span class="nt">condition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">service_completed_successfully</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>The following environment variables need to be set:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POSTGRES_USER</span></code>: Database username (default: <code class="docutils literal notranslate"><span class="pre">root</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code>: Database password (default: <code class="docutils literal notranslate"><span class="pre">password</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POSTGRES_DB</span></code>: Database name (default: <code class="docutils literal notranslate"><span class="pre">n8n</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N8N_ENCRYPTION_KEY</span></code>: Encryption key for n8n (default: <code class="docutils literal notranslate"><span class="pre">super-secret-key</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">N8N_USER_MANAGEMENT_JWT_SECRET</span></code>: JWT secret for n8n user management (default: <code class="docutils literal notranslate"><span class="pre">even-more-secret</span></code>)</p></li>
+</ul>
+<p>These can be set in a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the same directory as the docker-compose.yml file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Change the defaults if you are going to expose the services to the public internet!</p>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Clone the repository</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file with required variables</p></li>
+<li><p>Start the services:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For CPU deployment</span>
+docker compose --profile cpu up -d
+
+<span class="c1"># Or for GPU deployment</span>
+docker compose --profile gpu-nvidia up -d
+</pre></div>
+</div>
+</li>
+<li><p>Access n8n at <code class="docutils literal notranslate"><span class="pre">http://localhost:5678</span></code></p></li>
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">CookieBaker_AI.json</span></code> workflow into n8n</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For completely automated/headless deployments, you can use the n8n CLI instead of the web interface, with minimal changes. Refer to the official documentation at <a class="reference external" href="https://docs.n8n.io/hosting/cli-commands/">https://docs.n8n.io/hosting/cli-commands/</a></p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="what_is_this.html">What is this?</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api_endpoints.html">API Endpoints</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2024, Felipe Catapano Emrich Melo (MekhyW).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>
