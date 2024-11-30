@@ -37,6 +37,183 @@
         
   <div class="section" id="api-endpoints">
 <h1>API Endpoints<a class="headerlink" href="#api-endpoints" title="Permalink to this headline">¶</a></h1>
+<p>The CookieBaker-AI project exposes several REST API endpoints for interaction with the AI system.</p>
+<div class="section" id="response-endpoint">
+<h2>Response Endpoint<a class="headerlink" href="#response-endpoint" title="Permalink to this headline">¶</a></h2>
+<p>GET <em>/webhook/response</em></p>
+<blockquote>
+<div><p>Main endpoint for generating AI responses.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>prompt</strong> (<em>string</em>) – The user’s input text prompt</p></li>
+<li><p><strong>chat_id</strong> (<em>string</em>) – Unique identifier for the chat session</p></li>
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client making the request</p></li>
+<li><p><strong>media</strong> (<em>string</em>) – URL pointing to a media file for multimodal analysis. Use empty string if no media is provided.</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">response</span>
+<span class="p">{</span>
+    <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s in this image?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;chat_id&quot;</span><span class="p">:</span> <span class="s2">&quot;chat123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;web_client&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sfw&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;sender_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Felipe Catapano&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;media&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com/image.jpg&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example Response</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="s2">&quot;What a beautiful cat!&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="commands-management">
+<h2>Commands Management<a class="headerlink" href="#commands-management" title="Permalink to this headline">¶</a></h2>
+<p>POST <em>/webhook/commands</em></p>
+<blockquote>
+<div><p>Sets up available commands for a specific client.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+<li><p><strong>commands</strong> (<em>object</em>) – JSON object containing command definitions</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POST</span> <span class="o">/</span><span class="n">set_commands</span>
+<span class="p">{</span>
+    <span class="s2">&quot;client_name&quot;</span><span class="p">:</span> <span class="s2">&quot;web_client&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;commands&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;command1&quot;</span><span class="p">:</span> <span class="s2">&quot;description1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;command2&quot;</span><span class="p">:</span> <span class="s2">&quot;description2&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>GET <em>/webhook/commands</em></p>
+<blockquote>
+<div><p>Retrieves available commands for a specific client.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /get_commands?client_name=web_client
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="logs-endpoints">
+<h2>Logs Endpoints<a class="headerlink" href="#logs-endpoints" title="Permalink to this headline">¶</a></h2>
+<p>GET <em>/webhook/logs/error</em></p>
+<blockquote>
+<div><p>Retrieves error logs for a specific client.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /logs/error?client_name=web_client
+</pre></div>
+</div>
+</div></blockquote>
+<p>GET <em>/webhook/logs/metadata</em></p>
+<blockquote>
+<div><p>Retrieves logs of requests from a specific client.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /logs/metadata?client_name=web_client
+</pre></div>
+</div>
+</div></blockquote>
+<p>GET <em>/webhook/logs/media</em></p>
+<blockquote>
+<div><p>Retrieves logs of text descriptions extracted from media files using the multimodal model.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /logs/media?client_name=web_client
+</pre></div>
+</div>
+</div></blockquote>
+<p>GET <em>/webhook/logs/chat</em></p>
+<blockquote>
+<div><p>Retrieves logs of AI responses for a specific client.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><strong>client_name</strong> (<em>string</em>) – Name of the client</p></li>
+</ul>
+<p><strong>Example Request</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>GET /logs/chat?client_name=web_client
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="monitoring-endpoints">
+<h2>Monitoring Endpoints<a class="headerlink" href="#monitoring-endpoints" title="Permalink to this headline">¶</a></h2>
+<p>GET <em>/healthz</em></p>
+<blockquote>
+<div><p>Health check endpoint to verify service status.</p>
+<p><strong>Example Response</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>GET <em>/metrics</em></p>
+<blockquote>
+<div><p>Provides hardware-software metrics for monitoring and testing purposes.</p>
+<p><strong>Example Response</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="c1"># HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.</span>
+    <span class="c1"># TYPE process_cpu_user_seconds_total counter</span>
+    <span class="n">n8n_process_cpu_user_seconds_total</span> <span class="mf">79.260337</span>
+
+    <span class="c1"># HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.</span>
+    <span class="c1"># TYPE process_cpu_system_seconds_total counter</span>
+    <span class="n">n8n_process_cpu_system_seconds_total</span> <span class="mf">24.728905</span>
+
+    <span class="c1"># HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.</span>
+    <span class="c1"># TYPE process_cpu_seconds_total counter</span>
+    <span class="n">n8n_process_cpu_seconds_total</span> <span class="mf">103.98924199999999</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="database-schema">
+<h2>Database Schema<a class="headerlink" href="#database-schema" title="Permalink to this headline">¶</a></h2>
+<p>The API uses two main tables for data persistence:</p>
+<dl class="simple">
+<dt><strong>client_commands</strong></dt><dd><p>Stores command configurations for each client</p>
+<ul class="simple">
+<li><p>id (SERIAL PRIMARY KEY)</p></li>
+<li><p>client_name (VARCHAR)</p></li>
+<li><p>client_commands (JSONB)</p></li>
+</ul>
+</dd>
+<dt><strong>logs</strong></dt><dd><p>Stores interaction logs</p>
+<ul class="simple">
+<li><p>id (SERIAL PRIMARY KEY)</p></li>
+<li><p>client_name (VARCHAR)</p></li>
+<li><p>chat_id (VARCHAR)</p></li>
+<li><p>log_type (VARCHAR)</p></li>
+<li><p>log_data (JSONB)</p></li>
+</ul>
+</dd>
+</dl>
+</div>
 </div>
 
 
