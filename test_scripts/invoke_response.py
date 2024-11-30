@@ -1,7 +1,7 @@
 import requests
 
 def make_get_request():
-    url = 'http://localhost:5678/webhook-test/response'
+    url = 'http://localhost:5678/metrics'
     
     params = {
         'sfw': True,

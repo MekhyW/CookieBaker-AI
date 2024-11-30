@@ -1,6 +1,7 @@
 # CookieBaker-AI
 
-Conversational and command execution Intelligence for Cookiebot and Dynamo projects
+Conversational and command execution Intelligence for Cookiebot and Dynamo projects.
+Refer to the documentation page for more information (https://mekhyw.github.io/CookieBaker-AI/)
 
 ## Project outline:
 
@@ -34,13 +35,13 @@ Conversational and command execution Intelligence for Cookiebot and Dynamo proje
 
 ## Endpoints:
 
-- GET /response {client_name (string), chat_id (string), sfw (boolean), prompt (string), sender_name (string), sender_isadmin (boolean), media (string)}
-- GET /commands {client_name (string)}
-- POST /commands {unique_id (string), client_name (string), commands (json)}
-- PUT /commands {client_name (string), commands (json)}
-- GET /logs/error {client_name (string)}
-- GET /logs/metadata {client_name (string)}
-- GET /logs/media {client_name (string)}
-- GET /logs/chat {client_name (string)}
+- GET /webhook/response {client_name (string), chat_id (string), sfw (boolean), prompt (string), sender_name (string), media (string)}
+- GET /webhook/commands {client_name (string)}
+- POST /webhook/commands {unique_id (string), client_name (string), commands (json)}
+- PUT /webhook/commands {client_name (string), commands (json)}
+- GET /webhook/logs/error {client_name (string)}
+- GET /webhook/logs/metadata {client_name (string)}
+- GET /webhook/logs/media {client_name (string)}
+- GET /webhook/logs/chat {client_name (string)}
 - GET /healthz
 - GET /metrics
