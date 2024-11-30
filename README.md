@@ -1,6 +1,6 @@
 # CookieBaker-AI
 
-Conversational and command execution AI for Cookiebot and Dynamo projects
+Conversational and command execution Intelligence for Cookiebot and Dynamo projects
 
 ## Project outline:
 
