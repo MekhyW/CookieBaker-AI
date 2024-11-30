@@ -14,7 +14,6 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Model Observability" href="observability.html" />
     <link rel="prev" title="API Endpoints" href="api_endpoints.html" /> 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
@@ -27,8 +26,6 @@
         «&#160;&#160;<a href="api_endpoints.html">API Endpoints</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="observability.html">Model Observability</a>&#160;&#160;»
         </p>
 
       </div>
@@ -37,6 +34,171 @@
         
   <div class="section" id="fine-tuning">
 <h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this headline">¶</a></h1>
+<p>Both the SFW and NSFW response models are adapters fine-tuned on top of the abliterated version of the <code class="docutils literal notranslate"><span class="pre">gemma2-2b-it</span></code> model, using a custom dataset based on public data of partner, volunteer Telegram chats.</p>
+<p>The fine-tuning was done using the Hugging Face <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> API, with the <code class="docutils literal notranslate"><span class="pre">WandB</span></code> library for logging. <code class="docutils literal notranslate"><span class="pre">DVC</span></code> was used to manage the dataset versioning. You can re-run the fine-tuning process using your own dataset.</p>
+<div class="section" id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only collect data from chats where all participants have explicitly consented to their messages being used for training purposes and are aware of the data collection. Collecting chat data without consent may violate privacy rights and terms of service!</p>
+</div>
+<p>To collect chat data from Telegram:</p>
+<ol class="arabic simple">
+<li><p>Open Telegram Desktop</p></li>
+<li><p>Right-click on the chat you want to export</p></li>
+<li><p>Select “Export chat history”</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/telegram1.png"><img alt="Telegram export settings" class="align-center" src="_images/telegram1.png" style="width: 20%;" /></a>
+<ol class="arabic simple" start="4">
+<li><p>Choose JSON format in the export settings and set to save only text messages</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/telegram2.png"><img alt="Telegram export settings" class="align-center" src="_images/telegram2.png" style="width: 20%;" /></a>
+<ol class="arabic simple" start="5">
+<li><p>Save SFW chats to <code class="docutils literal notranslate"><span class="pre">data/SFW</span></code> folder</p></li>
+<li><p>Save NSFW chats to <code class="docutils literal notranslate"><span class="pre">data/NSFW</span></code> folder</p></li>
+</ol>
+<p>The exported JSON files will contain the full chat history in a structured format suitable for processing.</p>
+</div>
+<div class="section" id="install-dependencies">
+<h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Install the Python libraries required for the fine-tuning process (assuming you have a working Python 3.10+ environment):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># At the root of the project</span>
+pip install -r requirements.txt
+</pre></div>
+</div>
+<p>You will also need to install the Ollama CLI in order to upload the fine-tuned models to the model registry. Download the tool from the official website and follow their instructions depeding on your operating system.</p>
+</div>
+<div class="section" id="prepare-dataset">
+<h2>Prepare Dataset<a class="headerlink" href="#prepare-dataset" title="Permalink to this headline">¶</a></h2>
+<p>The dataset preparation uses DVC (Data Version Control) to manage the data pipeline. DVC is an open-source version control system for machine learning projects that allows tracking of data files, model files, and pipelines while keeping them outside of Git.</p>
+<p>First, change to the training directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> training
+</pre></div>
+</div>
+<p>Then run the DVC pipeline to process the data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dvc repro
+</pre></div>
+</div>
+<p>This will execute two preprocessing scripts in sequence:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">json2df.py</span></code> - Converts the raw Telegram JSON exports into Parquet dataframes:</p>
+<ul class="simple">
+<li><p>Processes all JSON files in <code class="docutils literal notranslate"><span class="pre">data/SFW</span></code> and <code class="docutils literal notranslate"><span class="pre">data/NSFW</span></code> folders</p></li>
+<li><p>Extracts relevant message data like text, sender, timestamps</p></li>
+<li><p>Combines messages from multiple chats</p></li>
+<li><p>Saves as <code class="docutils literal notranslate"><span class="pre">SFW.parquet</span></code> and <code class="docutils literal notranslate"><span class="pre">NSFW.parquet</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qa_pairs.py</span></code> - Creates question-answer pairs from the conversations:</p>
+<ul class="simple">
+<li><p>Identifies message replies to create context pairs</p></li>
+<li><p>Groups consecutive messages from the same sender</p></li>
+<li><p>Cleans the data by removing forwarded messages and bot messages</p></li>
+<li><p>Creates parallel “query” and “response” columns</p></li>
+<li><p>Saves as <code class="docutils literal notranslate"><span class="pre">SFW_qa.parquet</span></code> and <code class="docutils literal notranslate"><span class="pre">NSFW_qa.parquet</span></code></p></li>
+</ul>
+</li>
+</ol>
+<p>The resulting parquet files contain cleaned conversation pairs that will be used for fine-tuning the models. The DVC pipeline ensures reproducibility and tracks the data lineage, making it easy to rerun the preprocessing steps if the source data changes.</p>
+</div>
+<div class="section" id="fine-tune-models">
+<h2>Fine-Tune Models<a class="headerlink" href="#fine-tune-models" title="Permalink to this headline">¶</a></h2>
+<p>On the <code class="docutils literal notranslate"><span class="pre">finetune_llm.ipynb</span></code> notebook, the fine-tuning process takes place. It uses the <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library with PEFT (Parameter-Efficient Fine-Tuning) adapters. The base model <code class="docutils literal notranslate"><span class="pre">IlyaGusev/gemma-2-2b-it-abliterated</span></code> is loaded in 4-bit quantization to reduce memory usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">BitsAndBytesConfig</span>
+
+<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>
+    <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="s2">&quot;float16&quot;</span><span class="p">,</span>
+    <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="s2">&quot;IlyaGusev/gemma-2-2b-it-abliterated&quot;</span><span class="p">,</span>
+    <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The LoRA adapter configuration used for both SFW and NSFW models:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lora_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># Rank of the update matrices</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;q_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;o_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;k_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;v_proj&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;gate_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;up_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;down_proj&quot;</span><span class="p">],</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The current fine-tuning process uses the following hyperparameters:</p>
+<ul class="simple">
+<li><p>Batch size: 1 with gradient accumulation of 16 steps</p></li>
+<li><p>Learning rate: 1e-5 with 15 warmup steps</p></li>
+<li><p>Training steps: 150</p></li>
+<li><p>Mixed precision: FP16</p></li>
+<li><p>Optimizer: PagedAdamW8bit</p></li>
+</ul>
+<p>Training progress and metrics can be monitored in real-time through Weights &amp; Biases:</p>
+<ul class="simple">
+<li><p>Log in to wandb.ai, get your key and include it in your .env file as <code class="docutils literal notranslate"><span class="pre">WANDB_API_KEY</span></code></p></li>
+<li><p>The training process will automatically log the metrics such as loss and gradient norms, as well as system logs, to Weights &amp; Biases. Open the generated links in your browser to view them</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/wandb.png"><img alt="Weights &amp; Biases" class="align-center" src="_images/wandb.png" style="width: 100%;" /></a>
+<p>After training, the LoRA adapters are saved to <code class="docutils literal notranslate"><span class="pre">models/SFW/checkpoint-X</span></code> and <code class="docutils literal notranslate"><span class="pre">models/NSFW/checkpoint-X</span></code> respectively. Then, they are merged with the base model and saved to <code class="docutils literal notranslate"><span class="pre">models/SFW_merged</span></code> and <code class="docutils literal notranslate"><span class="pre">models/NSFW_merged</span></code> respectively.</p>
+</div>
+<div class="section" id="upload-models">
+<h2>Upload Models<a class="headerlink" href="#upload-models" title="Permalink to this headline">¶</a></h2>
+<p>After fine-tuning, the models need to be uploaded to the Ollama registry. The process involves creating Modelfiles that specify the model configuration and using the Ollama CLI to create and push the models. Use the notebook <code class="docutils literal notranslate"><span class="pre">push_to_ollama.ipynb</span></code> to automate the process.</p>
+<p>First, it will create Modelfiles for both SFW and NSFW models. You can modify the parameters to suit your needs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">modelfile_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">FROM ../SFW_merged</span>
+
+<span class="s2">ADAPTER checkpoint-150</span>
+
+<span class="s2">PARAMETER temperature 0.7</span>
+<span class="s2">PARAMETER top_p 0.7</span>
+<span class="s2">PARAMETER stop &quot;&lt;|im_end|&gt;&quot;</span>
+<span class="s2">PARAMETER stop &quot;&lt;eos&gt;&quot;</span>
+<span class="s2">PARAMETER stop &quot;&lt;end_of_turn&gt;&quot;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;models/SFW/Modelfile&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">modelfile_content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, it will fix the tokenizer JSON files to ensure compatibility with Ollama (this flattens the “merges” lists):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flatten_merges_in_json</span><span class="p">(</span><span class="s2">&quot;models/SFW_merged/tokenizer.json&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;models/SFW_merged/tokenizer.json&quot;</span><span class="p">)</span>
+<span class="n">flatten_merges_in_json</span><span class="p">(</span><span class="s2">&quot;models/NSFW_merged/tokenizer.json&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;models/NSFW_merged/tokenizer.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, it will create and push the models to Ollama:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create and push SFW model</span>
+<span class="nb">cd</span> models/SFW
+ollama create your-username/cookiebaker-sfw -f Modelfile
+ollama push your-username/cookiebaker-sfw
+
+<span class="c1"># Create and push NSFW model</span>
+<span class="nb">cd</span> ../NSFW
+ollama create your-username/cookiebaker-nsfw -f Modelfile
+ollama push your-username/cookiebaker-nsfw
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to have the Ollama CLI installed and be logged in with your account before pushing the models. Replace <code class="docutils literal notranslate"><span class="pre">your-username</span></code> with your actual Ollama username.</p>
+</div>
+</div>
+<div class="section" id="use-models">
+<h2>Use Models<a class="headerlink" href="#use-models" title="Permalink to this headline">¶</a></h2>
+<p>To use your fine-tuned models:</p>
+<ol class="arabic simple">
+<li><p>Edit the docker compose file to pull the new models (modify the command of x-init-ollama service)</p></li>
+<li><p>Re-run the docker compose file. The new models will be available in the Ollama container.</p></li>
+<li><p>Open the n8n workflow editor in your browser and update the model parameters of the <code class="docutils literal notranslate"><span class="pre">SFW</span> <span class="pre">responder</span></code> and <code class="docutils literal notranslate"><span class="pre">NSFW</span> <span class="pre">responder</span></code> nodes with the new model names from the dropdown menu.</p></li>
+<li><p>Query the workflow from your client application and enjoy your new fine-tuned models!</p></li>
+</ol>
+</div>
 </div>
 
 
@@ -47,8 +209,6 @@
         «&#160;&#160;<a href="api_endpoints.html">API Endpoints</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Contents</a>
-        &#160;&#160;::&#160;&#160;
-        <a href="observability.html">Model Observability</a>&#160;&#160;»
         </p>
 
       </div>

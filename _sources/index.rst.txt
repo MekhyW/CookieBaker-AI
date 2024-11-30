@@ -14,4 +14,3 @@ CookieBaker: Intelligence for Cookiebot and Dynamo projects
    setup_workflow
    api_endpoints
    fine_tuning
-   observability
