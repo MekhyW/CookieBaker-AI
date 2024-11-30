@@ -1,5 +1,3 @@
-.. _api_endpoints:
-
 API Endpoints
 ==============
 
@@ -8,7 +6,7 @@ The CookieBaker-AI project exposes several REST API endpoints for interaction wi
 Response Endpoint
 ------------------
 
-.. http:post:: /webhook/response
+GET */webhook/response*
 
    Main endpoint for generating AI responses.
 
@@ -41,7 +39,7 @@ Response Endpoint
 Commands Management
 --------------------
 
-.. http:post:: /webhook/commands
+POST */webhook/commands*
 
    Sets up available commands for a specific client.
 
@@ -61,7 +59,7 @@ Commands Management
           }
       }
 
-.. http:get:: /webhook/commands
+GET */webhook/commands*
 
    Retrieves available commands for a specific client.
 
@@ -76,7 +74,7 @@ Commands Management
 Logs Endpoints
 ---------------
 
-.. http:get:: /webhook/logs/error
+GET */webhook/logs/error*
 
    Retrieves error logs for a specific client.
 
@@ -88,7 +86,7 @@ Logs Endpoints
 
       GET /logs/error?client_name=web_client
 
-.. http:get:: /webhook/logs/metadata
+GET */webhook/logs/metadata*
 
    Retrieves logs of requests from a specific client.
 
@@ -100,7 +98,7 @@ Logs Endpoints
 
       GET /logs/metadata?client_name=web_client
 
-.. http:get:: /webhook/logs/media
+GET */webhook/logs/media*
 
    Retrieves logs of text descriptions extracted from media files using the multimodal model.
 
@@ -112,7 +110,7 @@ Logs Endpoints
 
       GET /logs/media?client_name=web_client
 
-.. http:get:: /webhook/logs/chat
+GET */webhook/logs/chat*
 
    Retrieves logs of AI responses for a specific client.
 
@@ -127,7 +125,7 @@ Logs Endpoints
 Monitoring Endpoints
 ---------------------
 
-.. http:get:: /healthz
+GET */healthz*
 
    Health check endpoint to verify service status.
 
@@ -137,7 +135,7 @@ Monitoring Endpoints
           "status": "ok"
       }
 
-.. http:get:: /metrics
+GET */metrics*
 
    Provides hardware-software metrics for monitoring and testing purposes.
 

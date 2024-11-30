@@ -9,8 +9,6 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
-    - name: Install dependencies
-      run: pip install sphinxcontrib-httpdomain
     - name: Build HTML
       uses: ammaraskar/sphinx-action@master
     - name: Upload artifacts
