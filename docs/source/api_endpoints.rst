@@ -54,8 +54,20 @@ POST */webhook/commands*
       {
           "client_name": "web_client",
           "commands": {
-              "command1": "description1",
-              "command2": "description2"
+              "command1": {
+                  "description": "description1",
+                  "parameters": {
+                      "param1": "description1",
+                      "param2": "description2"
+                  }
+              },
+              "command2": {
+                  "description": "description2",
+                  "parameters": {
+                      "param1": "description1",
+                      "param2": "description2"
+                  }
+              }
           }
       }
 

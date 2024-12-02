@@ -10,6 +10,10 @@ Additionally, the workflow logs all messages, responses, media captions and erro
 Explanatory Video
 -----------------
 
+.. raw:: html
+
+   <iframe width="800" height="450" src="https://www.youtube.com/embed/CdBSwl0_ISQ" allowfullscreen></iframe>
+
 Services
 ---------
 
