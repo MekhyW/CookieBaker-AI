@@ -533,10 +533,6 @@
             {
               "column": "log_type",
               "value": "error"
-            },
-            {
-              "column": "client_name",
-              "value": "={{ $json.query.client_name }}"
             }
           ]
         },
@@ -551,8 +547,7 @@
         "options": {
           "outputColumns": [
             "id",
-            "log_data",
-            "chat_id"
+            "log_data"
           ]
         }
       },
@@ -888,23 +883,6 @@
       "position": [
         120,
         1560
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "path": "logs/error",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "02148f93-2a3e-4705-9104-1633eb4033b8",
-      "name": "/logs/error",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        1380
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
@@ -1725,23 +1703,6 @@
         "agent": "conversationalAgent",
         "promptType": "define",
         "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
-        "options": {}
-      },
-      "id": "c1ad0420-81a3-4f00-9f52-a95ffbfaa490",
-      "name": "Response step SFW1",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1340,
-        180
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "agent": "conversationalAgent",
-        "promptType": "define",
-        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
         "hasOutputParser": true,
         "options": {}
       },
@@ -1772,6 +1733,40 @@
         640
       ],
       "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
+        "options": {}
+      },
+      "id": "c1ad0420-81a3-4f00-9f52-a95ffbfaa490",
+      "name": "Response step SFW1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1340,
+        180
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "path": "logs/error",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "02148f93-2a3e-4705-9104-1633eb4033b8",
+      "name": "/logs/error",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        1380
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
     }
   ],
   "pinData": {
@@ -1802,32 +1797,6 @@
       }
     ],
     "/logs/metadata": [
-      {
-        "json": {
-          "headers": {
-            "host": "localhost:5678",
-            "user-agent": "python-requests/2.32.3",
-            "accept-encoding": "gzip, deflate",
-            "accept": "*/*",
-            "connection": "keep-alive"
-          },
-          "params": {},
-          "query": {
-            "sfw": "True",
-            "chat_title": "Test Chat",
-            "chat_description": "This is a test chat description",
-            "prompt": "Test prompt for chatbot",
-            "sender_name": "Test User",
-            "sender_isadmin": "False",
-            "media": ""
-          },
-          "body": {},
-          "webhookUrl": "http://localhost:5678/webhook-test/response",
-          "executionMode": "test"
-        }
-      }
-    ],
-    "/logs/error": [
       {
         "json": {
           "headers": {
@@ -2154,17 +2123,6 @@
         ]
       ]
     },
-    "/logs/error": {
-      "main": [
-        [
-          {
-            "node": "get error logs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "/logs/chat": {
       "main": [
         [
@@ -2365,17 +2323,6 @@
         ]
       ]
     },
-    "Response step SFW1": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Response step NSFW1": {
       "main": [
         [
@@ -2397,6 +2344,28 @@
           }
         ]
       ]
+    },
+    "Response step SFW1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/error": {
+      "main": [
+        [
+          {
+            "node": "get error logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -2410,7 +2379,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "d3bbe58d-db7b-4764-b2fd-b2d5b9bf80be",
+  "versionId": "833182f5-057a-49e7-a527-4adedf11dec9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
