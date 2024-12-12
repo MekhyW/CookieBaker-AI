@@ -88,15 +88,11 @@ Logs Endpoints
 
 GET */webhook/logs/error*
 
-   Retrieves error logs for a specific client.
-
-   **Parameters**
-
-   * **client_name** (*string*) -- Name of the client
+   Retrieves error logs for all clients.
 
    **Example Request**::
 
-      GET /logs/error?client_name=web_client
+      GET /logs/error
 
 GET */webhook/logs/metadata*
 
