@@ -31,7 +31,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        340,
+        380,
         560
       ]
     },
@@ -984,8 +984,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        340,
-        380
+        280,
+        400
       ],
       "credentials": {
         "postgres": {
@@ -1089,7 +1089,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2300,
+        2280,
         580
       ],
       "credentials": {
@@ -1179,7 +1179,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2300,
+        2280,
         760
       ],
       "credentials": {
@@ -1240,26 +1240,6 @@
         640,
         820
       ]
-    },
-    {
-      "parameters": {
-        "model": "llava-phi3:latest",
-        "options": {}
-      },
-      "id": "a21234d3-ff7e-4c68-8a81-2ce15b683f3c",
-      "name": "Describer Model",
-      "type": "@n8n/n8n-nodes-langchain.lmOllama",
-      "typeVersion": 1,
-      "position": [
-        680,
-        480
-      ],
-      "credentials": {
-        "ollamaApi": {
-          "id": "xHuYe0MDGOs9IpBW",
-          "name": "Local Ollama service"
-        }
-      }
     },
     {
       "parameters": {
@@ -1341,8 +1321,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        1100,
-        140
+        1000,
+        160
       ],
       "credentials": {
         "postgres": {
@@ -1507,7 +1487,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2300,
+        2280,
         240
       ],
       "credentials": {
@@ -1597,7 +1577,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2300,
+        2280,
         420
       ],
       "credentials": {
@@ -1697,6 +1677,26 @@
     },
     {
       "parameters": {
+        "model": "llava-phi3:latest",
+        "options": {}
+      },
+      "id": "c8044c07-1b89-43b6-ade1-e4df0c0b6d99",
+      "name": "Media describer model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        700,
+        460
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "xHuYe0MDGOs9IpBW",
+          "name": "Local Ollama service"
+        }
+      }
+    },
+    {
+      "parameters": {
         "path": "response",
         "responseMode": "responseNode",
         "options": {}
@@ -1714,6 +1714,20 @@
     },
     {
       "parameters": {
+        "url": "={{ $('/response').item.json.query.media }}",
+        "options": {}
+      },
+      "id": "bb5a2e46-7c25-4ba9-85e7-f8aed969509a",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        540,
+        320
+      ]
+    },
+    {
+      "parameters": {
         "promptType": "define",
         "text": "Write a short description of the image.",
         "hasOutputParser": true,
@@ -1724,8 +1738,7 @@
             },
             {
               "type": "HumanMessagePromptTemplate",
-              "messageType": "imageUrl",
-              "imageUrl": "={{ $('/response').item.json.query.media }}"
+              "messageType": "imageBinary"
             }
           ]
         }
@@ -1735,7 +1748,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.4,
       "position": [
-        660,
+        680,
         320
       ]
     }
@@ -1825,7 +1838,7 @@
       "main": [
         [
           {
-            "node": "Media tokenization step",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -2152,17 +2165,6 @@
         ]
       ]
     },
-    "Describer Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Media tokenization step",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Calculator": {
       "ai_tool": [
         [
@@ -2284,6 +2286,17 @@
         ]
       ]
     },
+    "Media describer model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Media tokenization step",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "/response": {
       "main": [
         [
@@ -2294,6 +2307,17 @@
           },
           {
             "node": "If media URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Media tokenization step",
             "type": "main",
             "index": 0
           }
@@ -2328,7 +2352,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "4de55ba5-ac6f-4eec-9989-436132e8677d",
+  "versionId": "aa987f15-6d2f-480a-9dc9-a94a18aab1a1",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
