@@ -31,7 +31,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        520,
+        340,
         560
       ]
     },
@@ -66,8 +66,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1200,
-        580
+        1100,
+        820
       ]
     },
     {
@@ -77,8 +77,8 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        2020,
-        -20
+        1760,
+        -300
       ]
     },
     {
@@ -98,7 +98,9 @@
           "mappingMode": "defineBelow",
           "value": {
             "log_data": "={{ $json.execution.error }}",
-            "log_type": "error"
+            "log_type": "error",
+            "chat_id": "ERROR",
+            "client_name": "ERROR"
           },
           "matchingColumns": [
             "id"
@@ -113,6 +115,26 @@
               "type": "number",
               "canBeUsedToMatch": true,
               "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "log_type",
@@ -141,8 +163,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2480,
-        -20
+        2220,
+        -300
       ],
       "credentials": {
         "postgres": {
@@ -229,21 +251,6 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ $json.execution.error }}",
-        "options": {}
-      },
-      "id": "dd754e49-8a33-455f-8170-b437b1249332",
-      "name": "Respond to Webhook10",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [
-        2260,
-        -20
-      ]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
         "responseBody": "={{ $('Response step NSFW').item.json }}",
         "options": {}
       },
@@ -252,8 +259,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2140,
-        620
+        2060,
+        760
       ]
     },
     {
@@ -266,7 +273,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        1460,
+        1120,
         520
       ],
       "credentials": {
@@ -286,8 +293,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        1460,
-        860
+        1120,
+        660
       ],
       "credentials": {
         "ollamaApi": {
@@ -307,8 +314,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.1,
       "position": [
-        1720,
-        960
+        1820,
+        1240
       ],
       "credentials": {
         "postgres": {
@@ -326,8 +333,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
       "typeVersion": 1,
       "position": [
-        1920,
-        860
+        2040,
+        1140
       ],
       "credentials": {
         "serpApi": {
@@ -753,60 +760,14 @@
       }
     },
     {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "0a9943ef-8bfc-4b5e-8bba-e008e87538c2",
-              "name": "LLM_input",
-              "value": "",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "27dd930a-fdaa-4bda-9f52-7e592c64c26e",
-      "name": "Update prompt end",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        1020,
-        320
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d233c13b-78b0-4152-8b1f-21e2798523e3",
-              "name": "LLM_input",
-              "value": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $json.query.sender_name + \" says: \" + \"'\" + $json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "b7f6b84c-5b61-4d31-9b37-ca6ddfca8f2a",
-      "name": "Update prompt beginning",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        340,
-        560
-      ]
-    },
-    {
       "parameters": {},
       "id": "8537afb3-8ee2-4b92-ab1f-448035ab6b50",
       "name": "Execute Workflow Trigger",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        2020,
-        180
+        1760,
+        -100
       ]
     },
     {
@@ -843,8 +804,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2260,
-        180
+        2000,
+        -100
       ],
       "credentials": {
         "postgres": {
@@ -864,8 +825,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2480,
-        180
+        2220,
+        -100
       ]
     },
     {
@@ -878,15 +839,23 @@
           "mode": "list",
           "cachedResultName": "CookieBaker-AI"
         },
-        "responsePropertyName": "commands"
+        "responsePropertyName": "commands",
+        "fields": {
+          "values": [
+            {
+              "name": "client_name",
+              "stringValue": "={{ $('/response').item.json.query.client_name }}"
+            }
+          ]
+        }
       },
       "id": "ea1521b8-05c5-4309-b2fb-d2b958c0776f",
       "name": "Get Commands",
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1820,
-        860
+        1940,
+        1140
       ]
     },
     {
@@ -1058,8 +1027,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2140,
-        440
+        2060,
+        580
       ]
     },
     {
@@ -1142,8 +1111,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2380,
-        440
+        2300,
+        580
       ],
       "credentials": {
         "postgres": {
@@ -1168,8 +1137,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "client_name": "={{ json.query.client_name }}",
-            "chat_id": "={{ json.query.chat_id }}",
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
             "log_type": "chat",
             "log_data": "={{ $('Response step NSFW').item.json }}"
           },
@@ -1232,8 +1201,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        2380,
-        620
+        2300,
+        760
       ],
       "credentials": {
         "postgres": {
@@ -1306,7 +1275,7 @@
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        740,
+        700,
         100
       ]
     },
@@ -1320,7 +1289,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        580,
+        540,
         100
       ]
     },
@@ -1334,7 +1303,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmOllama",
       "typeVersion": 1,
       "position": [
-        720,
+        680,
         480
       ],
       "credentials": {
@@ -1424,8 +1393,264 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        1020,
+        980,
         160
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "6910e426-3934-4067-a1ca-1b3622d0aeaf",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        1140
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "00d4c97b-7ade-4ef7-a2c6-3bf8437a2da9",
+              "leftValue": "={{ $('/response').item.json.query.sfw }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "b8271e83-167f-4b0f-a6a9-c5f5e5bb0380",
+      "name": "SFW/NSFW1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('Response step NSFW1').item.json }}",
+        "options": {}
+      },
+      "id": "ff2340f3-a402-478e-90fd-eadd5198edc4",
+      "name": "Respond to Webhook2",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2060,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('Response step SFW1').item.json }}",
+        "options": {}
+      },
+      "id": "d61a34ef-6ed8-4696-a7da-c4ff3232fca5",
+      "name": "Respond to Webhook7",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2060,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
+            "log_type": "chat",
+            "log_data": "={{ $('Response step SFW1').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3651fa00-a799-4557-aa27-181898f610e0",
+      "name": "Log chat response SFW1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2300,
+        240
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1HXosNollNYXWPfJ",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "logs",
+          "mode": "list",
+          "cachedResultName": "logs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "client_name": "={{ $('/response').item.json.query.client_name }}",
+            "chat_id": "={{ $('/response').item.json.query.chat_id }}",
+            "log_type": "chat",
+            "log_data": "={{ $('Response step NSFW1').item.json }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "client_name",
+              "displayName": "client_name",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_type",
+              "displayName": "log_type",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "log_data",
+              "displayName": "log_data",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "993ad540-6cf9-4c41-8522-d967ceb52e4c",
+      "name": "Log chat response NSFW1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2300,
+        420
       ],
       "credentials": {
         "postgres": {
@@ -1459,7 +1684,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "=You role is to provide an appropriate image caption for user provided image.\n\nThe image could be a photo, a meme, a screenshot, a drawing, or maybe something else entirely. In any case, include relevant text visible on the image, if present."
+              "message": "=You role is to provide an appropriate image caption for the user provided image. The image could be a photo, a meme, a screenshot, a drawing, or maybe something else entirely. In any case, include relevant text visible on the image, if present."
             },
             {
               "type": "HumanMessagePromptTemplate",
@@ -1473,44 +1698,15 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.4,
       "position": [
-        700,
+        660,
         320
       ]
     },
     {
       "parameters": {
+        "agent": "conversationalAgent",
         "promptType": "define",
-        "text": "={{ $LLM_input }}",
-        "hasOutputParser": true,
-        "options": {}
-      },
-      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
-      "name": "Response step SFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1440,
-        360
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n\t\"response\": \"\",\n\t\"command\": \"\"\n}"
-      },
-      "id": "d9f583b4-c342-4022-8869-029179e5a01e",
-      "name": "Structured Output Parser",
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.2,
-      "position": [
-        2120,
-        860
-      ]
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $LLM_input }}",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
         "hasOutputParser": true,
         "options": {}
       },
@@ -1519,21 +1715,63 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.6,
       "position": [
-        1440,
-        700
+        1340,
+        840
       ],
       "alwaysOutputData": true
     },
     {
-      "parameters": {},
-      "id": "6910e426-3934-4067-a1ca-1b3622d0aeaf",
-      "name": "Calculator",
-      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
-      "typeVersion": 1,
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
+        "options": {}
+      },
+      "id": "c1ad0420-81a3-4f00-9f52-a95ffbfaa490",
+      "name": "Response step SFW1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
       "position": [
-        2020,
-        860
-      ]
+        1340,
+        180
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "7b4343a3-c3dc-46dc-8dfc-6580de07a6b6",
+      "name": "Response step NSFW1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1340,
+        380
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
+      "name": "Response step SFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1340,
+        640
+      ],
+      "alwaysOutputData": true
     }
   ],
   "pinData": {
@@ -1640,32 +1878,6 @@
           "executionMode": "test"
         }
       }
-    ],
-    "/response": [
-      {
-        "json": {
-          "headers": {
-            "host": "localhost:5678",
-            "user-agent": "python-requests/2.32.3",
-            "accept-encoding": "gzip, deflate",
-            "accept": "*/*",
-            "connection": "keep-alive"
-          },
-          "params": {},
-          "query": {
-            "sfw": "True",
-            "chat_title": "Test Chat",
-            "chat_description": "This is a test chat description",
-            "prompt": "Test prompt for chatbot",
-            "sender_name": "Test User",
-            "sender_isadmin": "False",
-            "media": ""
-          },
-          "body": {},
-          "webhookUrl": "http://localhost:5678/webhook-test/response",
-          "executionMode": "test"
-        }
-      }
     ]
   },
   "connections": {
@@ -1709,7 +1921,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook10",
+            "node": "Log error",
             "type": "main",
             "index": 0
           }
@@ -1723,6 +1935,11 @@
             "node": "Response step SFW",
             "type": "ai_languageModel",
             "index": 0
+          },
+          {
+            "node": "Response step SFW1",
+            "type": "ai_languageModel",
+            "index": 0
           }
         ]
       ]
@@ -1732,6 +1949,11 @@
         [
           {
             "node": "Response step NSFW",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Response step NSFW1",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -1750,6 +1972,16 @@
             "node": "Response step NSFW",
             "type": "ai_memory",
             "index": 0
+          },
+          {
+            "node": "Response step NSFW1",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Response step SFW1",
+            "type": "ai_memory",
+            "index": 0
           }
         ]
       ]
@@ -1766,16 +1998,15 @@
             "node": "Response step NSFW",
             "type": "ai_tool",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Respond to Webhook10": {
-      "main": [
-        [
+          },
           {
-            "node": "Log error",
-            "type": "main",
+            "node": "Response step NSFW1",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response step SFW1",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -1858,28 +2089,6 @@
         ]
       ]
     },
-    "Update prompt beginning": {
-      "main": [
-        [
-          {
-            "node": "If media URL",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update prompt end": {
-      "main": [
-        [
-          {
-            "node": "SFW/NSFW",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Execute Workflow Trigger": {
       "main": [
         [
@@ -1912,6 +2121,11 @@
           },
           {
             "node": "Response step NSFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response step SFW1",
             "type": "ai_tool",
             "index": 0
           }
@@ -2042,16 +2256,82 @@
         ]
       ]
     },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "Response step SFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response step NSFW",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response step NSFW1",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "Response step SFW1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFW/NSFW1": {
+      "main": [
+        [
+          {
+            "node": "Response step SFW1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response step NSFW1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook2": {
+      "main": [
+        [
+          {
+            "node": "Log chat response NSFW1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook7": {
+      "main": [
+        [
+          {
+            "node": "Log chat response SFW1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "/response": {
       "main": [
         [
           {
-            "node": "Update prompt beginning",
+            "node": "Log metadata",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Log metadata",
+            "node": "If media URL",
             "type": "main",
             "index": 0
           }
@@ -2067,35 +2347,8 @@
             "index": 0
           },
           {
-            "node": "Update prompt end",
+            "node": "SFW/NSFW1",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response step SFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Response step SFW",
-            "type": "ai_outputParser",
-            "index": 0
-          },
-          {
-            "node": "Response step NSFW",
-            "type": "ai_outputParser",
             "index": 0
           }
         ]
@@ -2112,17 +2365,34 @@
         ]
       ]
     },
-    "Calculator": {
-      "ai_tool": [
+    "Response step SFW1": {
+      "main": [
         [
           {
-            "node": "Response step SFW",
-            "type": "ai_tool",
+            "node": "Respond to Webhook7",
+            "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "Response step NSFW1": {
+      "main": [
+        [
           {
-            "node": "Response step NSFW",
-            "type": "ai_tool",
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step SFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
             "index": 0
           }
         ]
@@ -2140,7 +2410,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "a9353591-a99b-4ed6-bcef-2c6d153e6526",
+  "versionId": "d3bbe58d-db7b-4764-b2fd-b2d5b9bf80be",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
