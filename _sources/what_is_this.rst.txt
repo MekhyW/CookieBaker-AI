@@ -10,6 +10,9 @@ Additionally, the workflow logs all messages, responses, media captions and erro
 Explanatory Video
 -----------------
 
+.. warning::
+   The video uses outdated visuals, open the workflow in the browser to see the current state.
+
 .. raw:: html
 
    <iframe width="800" height="450" src="https://www.youtube.com/embed/CdBSwl0_ISQ" allowfullscreen></iframe>
