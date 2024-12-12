@@ -1243,36 +1243,6 @@
     },
     {
       "parameters": {
-        "operation": "resize",
-        "width": 1024,
-        "height": 1024,
-        "options": {}
-      },
-      "id": "11ab5132-b37b-47ef-b8ba-87c6ce17e395",
-      "name": "Resize",
-      "type": "n8n-nodes-base.editImage",
-      "typeVersion": 1,
-      "position": [
-        700,
-        100
-      ]
-    },
-    {
-      "parameters": {
-        "url": "={{ $('/response').item.json.query.media }}",
-        "options": {}
-      },
-      "id": "3d812325-d183-45de-8773-f2db825e0c11",
-      "name": "Get Image",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        540,
-        100
-      ]
-    },
-    {
-      "parameters": {
         "model": "llava-phi3:latest",
         "options": {}
       },
@@ -1371,8 +1341,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        980,
-        160
+        1100,
+        140
       ],
       "credentials": {
         "postgres": {
@@ -1639,49 +1609,6 @@
     },
     {
       "parameters": {
-        "path": "response",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
-      "name": "/response",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        120,
-        560
-      ],
-      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
-      "notesInFlow": false
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "Generate a caption for this image. If text is present on the image, include it as well.",
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
-            {
-              "message": "=You role is to provide an appropriate image caption for the user provided image. The image could be a photo, a meme, a screenshot, a drawing, or maybe something else entirely. In any case, include relevant text visible on the image, if present."
-            },
-            {
-              "type": "HumanMessagePromptTemplate",
-              "messageType": "imageBinary"
-            }
-          ]
-        }
-      },
-      "id": "06e41f3a-6e03-4b7e-a6e4-f8160d9a5b6a",
-      "name": "Media tokenization step",
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.4,
-      "position": [
-        660,
-        320
-      ]
-    },
-    {
-      "parameters": {
         "agent": "conversationalAgent",
         "promptType": "define",
         "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
@@ -1720,24 +1647,6 @@
       "parameters": {
         "agent": "conversationalAgent",
         "promptType": "define",
-        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
-        "hasOutputParser": true,
-        "options": {}
-      },
-      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
-      "name": "Response step SFW",
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 1.6,
-      "position": [
-        1340,
-        640
-      ],
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "agent": "conversationalAgent",
-        "promptType": "define",
         "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \" and included an image with content \" + \"'\" + $json.text + \"'\" + \"\\n\" + \"Your response: \" }}",
         "options": {}
       },
@@ -1767,6 +1676,68 @@
       ],
       "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
       "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "promptType": "define",
+        "text": "={{ \"You are CookieBot, a furry assistant AI created by Mekhy. Always answer in the same language as the user.\" + \"\\n\" + \"User \" + $('/response').item.json.query.sender_name + \" says: \" + \"'\" + $('/response').item.json.query.prompt + \"'\" + \"\\n\" + \"Your response: \" }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "88139251-cc17-40b3-8748-7fbf3a018886",
+      "name": "Response step SFW",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1340,
+        640
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "path": "response",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "aa62f0de-5eea-4a90-b9e1-bcdf11b41741",
+      "name": "/response",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        120,
+        560
+      ],
+      "webhookId": "9ca8a9d9-1d4f-41c2-86e4-9a1e43e22f55",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Write a short description of the image.",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You role is to provide an appropriate desc for the user provided image. The image could be a photo, a meme, a screenshot, a drawing, or maybe something else entirely. In any case, include relevant text visible on the image, if present."
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "messageType": "imageUrl",
+              "imageUrl": "={{ $('/response').item.json.query.media }}"
+            }
+          ]
+        }
+      },
+      "id": "06e41f3a-6e03-4b7e-a6e4-f8160d9a5b6a",
+      "name": "Media tokenization step",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [
+        660,
+        320
+      ]
     }
   ],
   "pinData": {
@@ -1854,7 +1825,7 @@
       "main": [
         [
           {
-            "node": "Get Image",
+            "node": "Media tokenization step",
             "type": "main",
             "index": 0
           }
@@ -2181,28 +2152,6 @@
         ]
       ]
     },
-    "Resize": {
-      "main": [
-        [
-          {
-            "node": "Media tokenization step",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Image": {
-      "main": [
-        [
-          {
-            "node": "Resize",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Describer Model": {
       "ai_languageModel": [
         [
@@ -2280,6 +2229,61 @@
         ]
       ]
     },
+    "Response step NSFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step NSFW1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step SFW1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "/logs/error": {
+      "main": [
+        [
+          {
+            "node": "get error logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response step SFW": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "/response": {
       "main": [
         [
@@ -2311,61 +2315,6 @@
           }
         ]
       ]
-    },
-    "Response step NSFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response step NSFW1": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response step SFW": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Response step SFW1": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook7",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/logs/error": {
-      "main": [
-        [
-          {
-            "node": "get error logs",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "active": true,
@@ -2379,7 +2328,7 @@
     "saveDataErrorExecution": "none",
     "saveDataSuccessExecution": "none"
   },
-  "versionId": "833182f5-057a-49e7-a527-4adedf11dec9",
+  "versionId": "4de55ba5-ac6f-4eec-9989-436132e8677d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
