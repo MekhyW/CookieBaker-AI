@@ -7,15 +7,12 @@ A client application can use the provided API endpoints to send a list of comman
 
 Additionally, the workflow logs all messages, responses, media captions and errors to the database, and provides API endpoints to access them for debugging and model observability.
 
-Explanatory Video
------------------
+Deprecation
+------------
 
-.. warning::
-   The video uses outdated visuals, open the workflow in the browser to see the current state.
+This implementation is a deprecated proof of concept version, built for the MLOps discipline at Insper.
 
-.. raw:: html
-
-   <iframe width="800" height="450" src="https://www.youtube.com/embed/CdBSwl0_ISQ" allowfullscreen></iframe>
+The current version aims to be a much more robust and scalable version with better tools and more features. Please refer to the `CookieBaker 2 repository <https://github.com/MekhyW/CookieBaker-AI-2>`_ for the current version.
 
 Services
 ---------
